@@ -60,25 +60,34 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         ModelManager modelManager = new ModelManager(addressBook, userPrefs);
+
+        //this will call AddressBook to removeTag(VALID_TAG_UNUSED);
         modelManager.deleteTag(new Tag(VALID_TAG_UNUSED));
 
+        //Compare if there's any changes between the default ModelManager and the updated modelManager
+        //because there isn't supposed to be a change if ADB is deleting an non-existent tag.
         assertEquals(new ModelManager(addressBook, userPrefs), modelManager);
     }
 
     @Test
     public void deleteTag_tagUsedByMultiplePersons_tagRemoved() throws Exception {
+
+        //AddressBook will build the Persons, AMY and BOB based on the setting in Typical Persons;
         AddressBook addressBook = new AddressBookBuilder().withPerson(AMY).withPerson(BOB).build();
         UserPrefs userPrefs = new UserPrefs();
 
         ModelManager modelManager = new ModelManager(addressBook, userPrefs);
+        //this will call AddressBook to removeTag(VALID_TAG_FRIEND), removing the tag "friend" on AMY and BOB;
         modelManager.deleteTag(new Tag(VALID_TAG_FRIEND));
 
+        //Creating expectedModelManager to compare with updated modelManager
         ModelManager expectedModelManager = new ModelManager(addressBook, userPrefs);
         Person amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
         Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         expectedModelManager.updatePerson(AMY, amyWithoutFriendTag);
         expectedModelManager.updatePerson(BOB, bobWithoutFriendTag);
 
+        //Check if expectedModelManager and modelManager are equal
         assertEquals(expectedModelManager, modelManager);
     }
 
