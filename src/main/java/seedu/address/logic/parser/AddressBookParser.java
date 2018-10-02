@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses user input.
@@ -73,7 +74,8 @@ public class AddressBookParser {
             return new RedoCommand();
 
         case RemoveTagCommand.COMMAND_WORD:
-            return new RemoveTagCommand();
+            //return new RemoveTagCommand();
+            return new RemoveTagCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
