@@ -153,12 +153,13 @@ public class AddCommandTest {
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
-    }
 
         @Override
         public void deleteTag(Tag tag){
             throw new AssertionError("This method should not be called.");
         }
+    }
+
     /**
      * A Model stub that contains a single person.
      */
