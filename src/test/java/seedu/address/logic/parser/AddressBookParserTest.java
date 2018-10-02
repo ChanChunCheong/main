@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -31,6 +32,7 @@ import seedu.address.logic.commands.RemoveTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -72,7 +74,11 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_removeTag() throws Exception{
-        assertTrue(parser.parseCommand(RemoveTagCommand.COMMAND_WORD) instanceof RemoveTagCommand);
+       // assertTrue(parser.parseCommand(RemoveTagCommand.COMMAND_WORD) instanceof RemoveTagCommand);
+        final Tag tag = new Tag("friend");
+        RemoveTagCommand command = (RemoveTagCommand) parser.parseCommand(RemoveTagCommand.COMMAND_WORD + " "
+                + PREFIX_TAG + tag);
+        assertEquals(new RemoveTagCommand(tag), command);
     }
 
     @Test

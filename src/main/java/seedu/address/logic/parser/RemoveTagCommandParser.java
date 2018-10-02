@@ -34,8 +34,8 @@ public class RemoveTagCommandParser implements Parser<RemoveTagCommand> {
                     (String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveTagCommand.MESSAGE_USAGE), ive);
         }
 
-        Tag tag = argumentMultimap.getValue(PREFIX_TAG).orElse("");
+       // Tag tag = argumentMultimap.getValue(PREFIX_TAG);
 
-        return new seedu.address.logic.parser.RemoveTagCommand(tag);
+        return new RemoveTagCommand(tag);
     }
 }
