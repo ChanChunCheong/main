@@ -17,7 +17,6 @@ import seedu.address.model.UserPrefs;
  */
 
 public class DeferDeadlineCommandTest {
-
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
