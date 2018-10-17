@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
+import seedu.address.model.task.Deadline;
+import seedu.address.model.task.Milestone;
 import seedu.address.model.task.Task;
 
 /**
@@ -63,6 +65,12 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedTaskBook.hasTask(person);
     }
 
+    //@@ChanChunCheong
+    @Override
+    public void deferTaskDeadline(Task target, String deadline) {
+        versionedTaskBook.deferDeadline(target, deadline);
+        indicateTaskBookChanged();
+    }
     @Override
     public void deleteTask(Task target) {
         versionedTaskBook.removeTask(target);
@@ -70,10 +78,23 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addTask(Task person) {
-        versionedTaskBook.addTask(person);
+    public void completeTask(Task target) {
+        versionedTaskBook.completeTask(target);
+        indicateTaskBookChanged();
+    }
+
+    @Override
+    public void addTask(Task task) {
+        versionedTaskBook.addTask(task);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         indicateTaskBookChanged();
+    }
+
+    @Override
+    public void selectDeadline(Deadline deadline) {
+        versionedTaskBook.selectDeadline(deadline);
+        //updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        //indicateTaskBookChanged();
     }
 
     @Override
@@ -84,6 +105,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
+    //@@author JeremyInElysium
+    @Override
+    public void addMilestone(Milestone milestone) {
+        versionedTaskBook.addMilestone(milestone);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        indicateTaskBookChanged();
+    }
     //=========== Filtered Task List Accessors =============================================================
 
     /**
@@ -148,4 +176,11 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredTasks.equals(other.filteredTasks);
     }
 
+    /*
+    //=========== Deadline Accessors =============================================================
+    @Override
+    public void selectDeadline(Deadline deadline);
+    @Override
+    public boolean invalidDeadline(Deadline deadline);
+    */
 }
