@@ -883,6 +883,8 @@ Use case resumes at step 2.
 Use case ends.
 
 [discrete]
+
+[discrete]
 === Use case: Add milestone
 
 *MSS*
