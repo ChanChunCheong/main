@@ -48,6 +48,7 @@ public class SortTaskCommand extends Command implements CommandParser {
         //throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
         //throw new CommandException(String.format(MESSAGE_ARGUMENTS, method));
         if (method.equals("modules")) {
+            model.sortTask(method);
             return new CommandResult(String.format(MESSAGE_SUCCESS, method));
         } else {
           //if the methods called are not within the list of methods called then throw CommandException

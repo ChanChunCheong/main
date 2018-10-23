@@ -133,6 +133,16 @@ public class AddressBook implements ReadOnlyTaskBook {
         currentDate = deadline;
     }
 
+    //@@ ChanChunCheong
+    /**
+     * Sorts the Task Book based on the method chosen.
+     * Update the list.
+     */
+    public void sortTask(String method) {
+        requireNonNull(method);
+        tasks.sort(method);
+    }
+
     // util methods
 
     @Override

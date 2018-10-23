@@ -62,6 +62,19 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
+     * Defer the deadline of the task (@code target) in the list with (@code deadline).
+     * (@code target) must exist in the list.
+     */
+
+    public void sort(String method) {
+        requireNonNull(method);
+        //list the different possible sort methods here
+        if (method.equals("modules")) {
+
+        }
+    }
+
+    /**
      * Replaces the task {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
      * The task identity of {@code editedPerson} must not be the same as another existing task in the list.

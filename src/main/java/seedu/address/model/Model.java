@@ -50,6 +50,8 @@ public interface Model {
      */
     void selectDeadline(Deadline deadline);
 
+    //@@author ChanChunCheong
+    void sortTask(String method);
     /**
      * Replaces the given task {@code target} with {@code editedTask}.
      * {@code target} must exist in the task book.
