@@ -17,6 +17,8 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String deadline;
     @XmlElement(required = true)
+    private String moduleCode;
+    @XmlElement(required = true)
     private String title;
     @XmlElement(required = true)
     private String description;
@@ -32,8 +34,9 @@ public class XmlAdaptedTask {
     /**
      * Constructs an {@code XmlAdaptedTask} with the given task details.
      */
-    public XmlAdaptedTask(String deadline, String title, String description, String priority) {
+    public XmlAdaptedTask(String deadline, String moduleCode, String title, String description, String priority) {
         this.deadline = deadline;
+        this.moduleCode = moduleCode;
         this.title = title;
         this.description = description;
         this.priority = priority;
@@ -46,6 +49,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(Task source) {
         deadline = source.getDeadline();
+        moduleCode = source.getModuleCode();
         title = source.getTitle();
         description = source.getDescription();
         priority = source.getPriorityLevel().toString();
@@ -67,6 +71,12 @@ public class XmlAdaptedTask {
         //TODO: Replace deadline
         final String modelDeadline = deadline;
 
+        if (moduleCode == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Module"));
+        }
+
+        final String modelModuleCode = moduleCode;
+
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Title"));
         }
@@ -86,7 +96,7 @@ public class XmlAdaptedTask {
         }
         final PriorityLevel modelPriority = new PriorityLevel(priority);
 
-        return new Task(modelDeadline, modelTitle, modelDescription, modelPriority);
+        return new Task(modelDeadline, modelModuleCode, modelTitle, modelDescription, modelPriority);
     }
 
     @Override

@@ -12,7 +12,8 @@ import seedu.address.model.task.Task;
 public class SampleDataUtil {
     public static Task[] getSampleTasks() {
         return new Task[] {
-            new Task("1/1", "Complete code refactoring", "refer to notes", new PriorityLevel("high")),
+            new Task("1/1", "CS2113",
+                    "Complete code refactoring", "refer to notes", new PriorityLevel("high")),
         };
     }
 

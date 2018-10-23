@@ -10,14 +10,17 @@ import seedu.address.model.task.exceptions.TaskCompletedException;
  */
 public class Task {
     private static final String PLACEHOLDER_DEADLINE = "1/1";
+    private static final String PLACEHOLDER_MODULECODE = "CS2113";
+    private String moduleCode;
     private String deadline;
     private final String title;
     private final String description;
     private final PriorityLevel priorityLevel;
     private boolean isCompleted;
 
-    public Task(String deadline, String title, String description, PriorityLevel priorityLevel) {
+    public Task(String deadline, String moduleCode, String title, String description, PriorityLevel priorityLevel) {
         this.deadline = deadline;
+        this.moduleCode = moduleCode;
         this.title = title;
         this.description = description;
         this.priorityLevel = priorityLevel;
@@ -26,6 +29,7 @@ public class Task {
 
     public Task(String title, String description, PriorityLevel priorityLevel) {
         this.deadline = PLACEHOLDER_DEADLINE;
+        this.moduleCode = PLACEHOLDER_MODULECODE;
         this.title = title;
         this.description = description;
         this.priorityLevel = priorityLevel;
@@ -34,6 +38,10 @@ public class Task {
 
     public String getDeadline() {
         return deadline;
+    }
+
+    public String getModuleCode() {
+        return moduleCode;
     }
 
     public String getTitle() {
