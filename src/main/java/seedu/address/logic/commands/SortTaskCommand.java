@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SORT;
 
 import seedu.address.logic.CommandHistory;
@@ -23,6 +24,7 @@ public class SortTaskCommand extends Command implements CommandParser {
 
     //public static final String MESSAGE_NOT_IMPLEMENTED_YET = "SortTask command not implemented yet";
     public static final String MESSAGE_ARGUMENTS = "method: %1$s";
+    public static final String MESSAGE_SUCCESS = "Sort task based on: %1$s";
     private final String method;
 
     public SortTaskCommand() {
@@ -41,9 +43,17 @@ public class SortTaskCommand extends Command implements CommandParser {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+
         requireNonNull(model);
         //throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
-        throw new CommandException(String.format(MESSAGE_ARGUMENTS, method));
+        //throw new CommandException(String.format(MESSAGE_ARGUMENTS, method));
+        if (method.equals("modules")) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, method));
+        } else {
+          //if the methods called are not within the list of methods called then throw CommandException
+            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortTaskCommand.MESSAGE_USAGE));
+        }
+
     }
 
     @Override

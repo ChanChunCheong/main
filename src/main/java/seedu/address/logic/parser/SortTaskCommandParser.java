@@ -26,13 +26,15 @@ public class SortTaskCommandParser implements Parser<SortTaskCommand>{
                     SortTaskCommand.MESSAGE_USAGE), ive);
         }
         */
-        String method = argMultimap.getValue(PREFIX_SORT).orElse("");
-        //cannot have blank method
-        if (method == "") {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SortTaskCommand.MESSAGE_USAGE));
-        }
 
+        if (!arePrefixesPresent(argMultimap, PREFIX_SORT) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortTaskCommand.MESSAGE_USAGE));
+        }
+        String method = argMultimap.getValue(PREFIX_SORT).orElse("");
+        //method cannot be null
+        if (method.equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortTaskCommand.MESSAGE_USAGE));
+        }
         return new SortTaskCommand(method);
     }
 
