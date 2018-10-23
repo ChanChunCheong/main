@@ -3,6 +3,8 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
+import seedu.address.model.task.Task;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -62,7 +65,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Defer the deadline of the task (@code target) in the list with (@code deadline).
+     * sorts the task (@code target) in the list with the chosen (@code method).
      * (@code target) must exist in the list.
      */
 
@@ -70,7 +73,13 @@ public class UniqueTaskList implements Iterable<Task> {
         requireNonNull(method);
         //list the different possible sort methods here
         if (method.equals("modules")) {
-
+            Collections.sort(internalList, new Comparator<Task>() {
+                @Override
+                public int compare(Task self, Task other) {
+                    return self.getModuleCode().compareTo(other.getModuleCode());
+                }
+            });
+            System.out.println("yup");
         }
     }
 
