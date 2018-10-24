@@ -47,7 +47,8 @@ public class SortTaskCommand extends Command implements CommandParser {
         requireNonNull(model);
         //throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
         //throw new CommandException(String.format(MESSAGE_ARGUMENTS, method));
-        if (method.equals("modules") || method.equals("deadlines")) {
+        if (method.equals("modules") || method.equals("deadlines") || method.equals("priority") ||
+                method.equals("title")) {
             model.sortTask(method);
             return new CommandResult(String.format(MESSAGE_SUCCESS, method));
         } else {

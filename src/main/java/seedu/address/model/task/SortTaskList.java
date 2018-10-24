@@ -16,6 +16,10 @@ public class SortTaskList {
                     return self.getModuleCode().compareTo(other.getModuleCode());
                 } else if (method.equals("deadlines")) {
                     return self.getDeadline().compareTo(other.getDeadline());
+                } else if (method.equals("priority")) {
+                    return self.getPriorityLevel().toString().compareTo(other.getPriorityLevel().toString());
+                } else if (method.equals("title")) {
+                    return self.getTitle().compareTo(other.getTitle());
                 } else {
                     return 0;
                 }
