@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.SortTaskList;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -26,7 +27,7 @@ import seedu.address.model.task.Task;
  * @see Task#isSameTask(Task)
  */
 public class UniqueTaskList implements Iterable<Task> {
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -48,7 +49,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
 
-    //@@ChanChunCheong
+    //@@author ChanChunCheong
     /**
      * Defer the deadline of the task (@code target) in the list with (@code deadline).
      * (@code target) must exist in the list.
@@ -69,18 +70,11 @@ public class UniqueTaskList implements Iterable<Task> {
      * (@code target) must exist in the list.
      */
 
+    //@@author ChanChunCheong
     public void sort(String method) {
         requireNonNull(method);
-        //list the different possible sort methods here
-        if (method.equals("modules")) {
-            Collections.sort(internalList, new Comparator<Task>() {
-                @Override
-                public int compare(Task self, Task other) {
-                    return self.getModuleCode().compareTo(other.getModuleCode());
-                }
-            });
-            System.out.println("yup");
-        }
+        SortTaskList sortTaskList = new SortTaskList();
+        internalList = sortTaskList.sortTask(internalList, method);
     }
 
     /**

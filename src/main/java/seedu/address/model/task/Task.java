@@ -10,7 +10,7 @@ import seedu.address.model.task.exceptions.TaskCompletedException;
  */
 public class Task {
     private static final String PLACEHOLDER_DEADLINE = "1/1";
-    private static final String PLACEHOLDER_MODULECODE = "BS2113";
+    private static final String PLACEHOLDER_MODULECODE = "A2113";
     private String moduleCode;
     private String deadline;
     private final String title;
