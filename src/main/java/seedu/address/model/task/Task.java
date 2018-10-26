@@ -55,6 +55,11 @@ public class Task {
     public PriorityLevel getPriorityLevel() {
         return priorityLevel;
     }
+
+    public int getPriorityLevelInt() {
+        return priorityLevel.priorityLevelInt;
+    }
+
     public boolean isCompleted() {
         return isCompleted;
     }

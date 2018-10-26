@@ -22,7 +22,8 @@ public class SortTaskList {
                         return self.getDeadline().compareTo(other.getDeadline());
                     }
                     case ("priority"): {
-                        return self.getPriorityLevel().toString().compareTo(other.getPriorityLevel().toString());
+                        return Integer.valueOf(self.getPriorityLevelInt())
+                                .compareTo(Integer.valueOf(other.getPriorityLevelInt()));
                     }
                     case ("title"): {
                         return self.getTitle().compareTo(other.getTitle());
