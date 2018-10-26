@@ -56,6 +56,7 @@ public class Task {
         return priorityLevel;
     }
 
+    //@@author ChanChunCheong
     public int getPriorityLevelInt() {
         return priorityLevel.priorityLevelInt;
     }

@@ -23,6 +23,8 @@ public class PriorityLevel {
         requireNonNull(priority);
         checkArgument(isValidPriorityLevel(priority), MESSAGE_PRIORITY_CONSTRAINTS);
         priorityLevel = priority.toLowerCase();
+
+        //@@author ChanChunCheong
         switch(priority) {
             case ("low"): {
                 priorityLevelInt = 3;
