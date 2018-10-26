@@ -40,7 +40,7 @@ public class SortTaskCommand extends Command implements CommandParser {
      */
     public SortTaskCommand(String method) {
         requireNonNull(method);
-        this.method = method;
+        this.method = method.toLowerCase();
     }
 
     @Override
