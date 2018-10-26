@@ -2,13 +2,13 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.task.Deadline;
-import seedu.address.model.task.Milestone;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
+import seedu.address.logic.commands.SortTaskCommand;
+import seedu.address.model.task.*;
 
 /**
  * Wraps all data at the address-book level
@@ -140,7 +140,11 @@ public class AddressBook implements ReadOnlyTaskBook {
      */
     public void sortTask(String method) {
         requireNonNull(method);
-        tasks.sort(method);
+        SortTaskList sortList = new SortTaskList();
+        ObservableList<Task> copyList = sortList.sortTask(obtainModifiableObservableList(), method);
+        UniqueTaskList updateList = new UniqueTaskList();
+        updateList.setTasks(copyList);
+        tasks.setTasks(updateList);
     }
 
     // util methods
@@ -154,6 +158,10 @@ public class AddressBook implements ReadOnlyTaskBook {
     @Override
     public ObservableList<Task> getTaskList() {
         return tasks.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Task> obtainModifiableObservableList() {
+        return tasks.obtainObservableList();
     }
 
     @Override

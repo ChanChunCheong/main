@@ -12,6 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
+import java.util.List;
+
 //@@author ChanChunCheong
 public class SortTaskCommand extends Command implements CommandParser {
     public static final String COMMAND_WORD = "sort";
@@ -50,6 +52,7 @@ public class SortTaskCommand extends Command implements CommandParser {
         if (method.equals("modules") || method.equals("deadlines") || method.equals("priority") ||
                 method.equals("title")) {
             model.sortTask(method);
+            model.commitTaskBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, method));
         } else {
           //if the methods called are not within the list of methods called then throw CommandException

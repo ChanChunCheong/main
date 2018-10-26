@@ -3,10 +3,7 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +24,7 @@ import seedu.address.model.task.SortTaskList;
  * @see Task#isSameTask(Task)
  */
 public class UniqueTaskList implements Iterable<Task> {
-    private ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -66,18 +63,6 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * sorts the task (@code target) in the list with the chosen (@code method).
-     * (@code target) must exist in the list.
-     */
-
-    //@@author ChanChunCheong
-    public void sort(String method) {
-        requireNonNull(method);
-        SortTaskList sortTaskList = new SortTaskList();
-        internalList = sortTaskList.sortTask(internalList, method);
-    }
-
-    /**
      * Replaces the task {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
      * The task identity of {@code editedPerson} must not be the same as another existing task in the list.
@@ -93,7 +78,6 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!target.isSameTask(editedPerson) && contains(editedPerson)) {
             throw new DuplicateTaskException();
         }
-
         internalList.set(index, editedPerson);
     }
 
@@ -136,15 +120,18 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!tasksAreUnique(tasks)) {
             throw new DuplicateTaskException();
         }
-
         internalList.setAll(tasks);
     }
-
-    /**
+    /*
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Task> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
+    }
+
+
+    public ObservableList<Task> obtainObservableList() {
+        return internalList;
     }
 
     @Override
