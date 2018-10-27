@@ -17,6 +17,7 @@ import seedu.address.model.task.UniqueTaskList;
  */
 public class AddressBook implements ReadOnlyTaskBook {
 
+    private static final Deadline PLACEHOLDER_DEADLINE = new Deadline("1/1/2018");
     private final UniqueTaskList tasks;
     private Deadline currentDate;
 
@@ -153,6 +154,9 @@ public class AddressBook implements ReadOnlyTaskBook {
     }
 
     public Deadline getDeadline() {
+        if (currentDate == null) {
+            currentDate = PLACEHOLDER_DEADLINE;
+        }
         return currentDate;
     }
     // util methods

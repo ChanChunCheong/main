@@ -24,7 +24,6 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.testutil.TaskBuilder;
 
-
 //@@author chelseyong
 public class AddressBookTest {
 
@@ -55,8 +54,7 @@ public class AddressBookTest {
     public void resetData_withDuplicateTasks_throwsDuplicateTaskException() {
         // Two tasks with the same title and deadline fields
         Task editedTask1 = new TaskBuilder(CS2113_TASK_1).withDescription(VALID_DESCRIPTION_2)
-                .withPriority(VALID_PRIORITY_LEVEL_HIGH)
-                .build();
+                .withPriority(VALID_PRIORITY_LEVEL_HIGH).build();
         List<Task> newTasks = Arrays.asList(CS2113_TASK_1, editedTask1);
         TaskBookStub newData = new TaskBookStub(newTasks);
 
@@ -85,8 +83,7 @@ public class AddressBookTest {
     public void hasTask_taskWithSameTitleAndSameDeadlineInTaskBook_returnsTrue() {
         addressBook.addTask(CS2113_TASK_1);
         Task editedTask1 = new TaskBuilder(CS2113_TASK_1).withDescription(VALID_DESCRIPTION_2)
-                .withPriority(VALID_PRIORITY_LEVEL_HIGH)
-                .build();
+                .withPriority(VALID_PRIORITY_LEVEL_HIGH).build();
         assertTrue(addressBook.hasTask(editedTask1));
     }
 

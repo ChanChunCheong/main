@@ -24,7 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedTaskBook versionedTaskBook;
     private final FilteredList<Task> filteredTasks;
-    private Predicate<Task> predicateShowCompletedTasks = Task::isCompleted;
+    private final Predicate<Task> predicateShowCompletedTasks = Task::isCompleted;
 
     /**
      * Initializes a ModelManager with the given taskBook and userPrefs.
@@ -101,6 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
+    //@@author
     @Override
     public void updateTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);

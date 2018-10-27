@@ -27,7 +27,7 @@ public class XmlAdaptedTask {
     private String priorityLevel;
     @XmlElement(required = true)
     private String expectedNumOfHours;
-    @XmlElement
+    @XmlElement (required = true)
     private String completedNumOfHours;
     @XmlElement(required = true)
     private boolean isCompleted;
@@ -50,8 +50,8 @@ public class XmlAdaptedTask {
         this.description = description;
         this.priorityLevel = priorityLevel;
         this.expectedNumOfHours = expectedNumOfHours;
-        //this.completedNumOfHours = completedNumOfHours;
-        //this.isCompleted = isCompleted;
+        this.completedNumOfHours = completedNumOfHours;
+        this.isCompleted = isCompleted;
     }
 
     /**
