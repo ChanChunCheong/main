@@ -26,20 +26,20 @@ public class PriorityLevel {
 
         //@@author ChanChunCheong
         switch(priority) {
-            case ("low"): {
-                priorityLevelInt = 3;
-                break;
-            }
-            case ("medium"): {
-                priorityLevelInt = 2;
-                break;
-            }
-            case ("high"): {
-                priorityLevelInt = 1;
-                break;
-            }
-            default:
-                priorityLevelInt = 0;
+        case ("low"): {
+            priorityLevelInt = 3;
+            break;
+        }
+        case ("medium"): {
+            priorityLevelInt = 2;
+            break;
+        }
+        case ("high"): {
+            priorityLevelInt = 1;
+            break;
+        }
+        default:
+            priorityLevelInt = 0;
         }
     }
 

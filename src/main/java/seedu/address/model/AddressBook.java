@@ -2,13 +2,14 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.SortTaskCommand;
-import seedu.address.model.task.*;
+import seedu.address.model.task.Deadline;
+import seedu.address.model.task.Milestone;
+import seedu.address.model.task.SortTaskList;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 
 /**
  * Wraps all data at the address-book level
@@ -92,8 +93,8 @@ public class AddressBook implements ReadOnlyTaskBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void completeTask(Task key) {
-        tasks.complete(key);
+    public void completeTask(Task key, int hours) {
+        tasks.complete(key, hours);
     }
 
     //@@author ChanChunCheong
@@ -101,7 +102,7 @@ public class AddressBook implements ReadOnlyTaskBook {
      * Defer {@code key} previous deadline with (@code deadline) from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void deferDeadline(Task key, String deadline) {
+    public void deferDeadline(Task key, Deadline deadline) {
         requireNonNull(deadline);
         tasks.defer(key, deadline);
     }
@@ -147,6 +148,13 @@ public class AddressBook implements ReadOnlyTaskBook {
         tasks.setTasks(updateList);
     }
 
+    public boolean validDeadline(Deadline deadline) {
+        return currentDate.isValidDeadline(deadline.toString());
+    }
+
+    public Deadline getDeadline() {
+        return currentDate;
+    }
     // util methods
 
     @Override

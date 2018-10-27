@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
-import com.sun.xml.bind.XmlAccessorFactory;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -39,6 +39,8 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label priorityLevel;
     @FXML
+    private Label expectedNumOfHours;
+    @FXML
     private Label status;
     /*
     @FXML
@@ -52,16 +54,16 @@ public class TaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         title.setText(task.getTitle());
-        deadline.setText(task.getDeadline());
+        deadline.setText(task.getDeadline().toString());
         moduleCodes.setText(task.getModuleCode());
         description.setText(task.getDescription());
         priorityLevel.setText(task.getPriorityLevel().priorityLevel);
+        expectedNumOfHours.setText(Integer.toString(task.getExpectedNumOfHours()) + " hours");
         if (task.isCompleted()) {
             status.setText("Completed!");
         } else {
             status.setText("Not completed :(");
         }
-        //email.setText(task.getEmail().value);
         //task.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

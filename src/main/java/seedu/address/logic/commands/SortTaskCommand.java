@@ -6,15 +6,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SORT;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-//import seedu.address.logic.parser.SortTaskCommandParser;
 import seedu.address.logic.parser.SortTaskCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.task.Task;
-
-import java.util.List;
 
 //@@author ChanChunCheong
+/**
+ * Sorts the tasks list in the task book based on the method chosen
+ */
 public class SortTaskCommand extends Command implements CommandParser {
     public static final String COMMAND_WORD = "sort";
 
@@ -49,13 +48,13 @@ public class SortTaskCommand extends Command implements CommandParser {
         requireNonNull(model);
         //throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
         //throw new CommandException(String.format(MESSAGE_ARGUMENTS, method));
-        if (method.equals("modules") || method.equals("deadlines") || method.equals("priority") ||
-                method.equals("title")) {
+        if (method.equals("modules") || method.equals("deadlines") || method.equals("priority")
+                || method.equals("title")) {
             model.sortTask(method);
             model.commitTaskBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, method));
         } else {
-          //if the methods called are not within the list of methods called then throw CommandException
+            //if the methods called are not within the list of methods called then throw CommandException
             throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortTaskCommand.MESSAGE_USAGE));
         }
 

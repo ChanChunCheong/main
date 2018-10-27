@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.task.Deadline;
 import seedu.address.model.task.PriorityLevel;
 import seedu.address.model.task.Task;
 
@@ -23,7 +24,13 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String description;
     @XmlElement(required = true)
-    private String priority;
+    private String priorityLevel;
+    @XmlElement(required = true)
+    private String expectedNumOfHours;
+    @XmlElement
+    private String completedNumOfHours;
+    @XmlElement(required = true)
+    private boolean isCompleted;
 
     /**
      * Constructs an XmlAdaptedTask.
@@ -34,12 +41,17 @@ public class XmlAdaptedTask {
     /**
      * Constructs an {@code XmlAdaptedTask} with the given task details.
      */
-    public XmlAdaptedTask(String deadline, String moduleCode, String title, String description, String priority) {
+
+    public XmlAdaptedTask(String deadline, String moduleCode, String title, String description, String priorityLevel,
+                          String expectedNumOfHours, String completedNumOfHours, boolean isCompleted) {
         this.deadline = deadline;
         this.moduleCode = moduleCode;
         this.title = title;
         this.description = description;
-        this.priority = priority;
+        this.priorityLevel = priorityLevel;
+        this.expectedNumOfHours = expectedNumOfHours;
+        //this.completedNumOfHours = completedNumOfHours;
+        //this.isCompleted = isCompleted;
     }
 
     /**
@@ -48,11 +60,14 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedTask(Task source) {
-        deadline = source.getDeadline();
+        deadline = source.getDeadline().toString();
         moduleCode = source.getModuleCode();
         title = source.getTitle();
         description = source.getDescription();
-        priority = source.getPriorityLevel().toString();
+        priorityLevel = source.getPriorityLevel().toString();
+        expectedNumOfHours = Integer.toString(source.getExpectedNumOfHours());
+        completedNumOfHours = Integer.toString(source.getCompletedNumOfHours());
+        isCompleted = source.isCompleted();
     }
 
     /**
@@ -62,14 +77,13 @@ public class XmlAdaptedTask {
      */
     public Task toModelType() throws IllegalValueException {
         if (deadline == null) {
-            //TODO: Deadline.class.getSimpleName()
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Deadline"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Deadline.class.getSimpleName()));
         }
-        //        if (!Deadline.isValidDeadline(deadline)) {
-        //            throw new IllegalValueException(Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
-        //        }
-        //TODO: Replace deadline
-        final String modelDeadline = deadline;
+        if (!Deadline.isValidDeadline(deadline)) {
+            throw new IllegalValueException(Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+        }
+        final Deadline modelDeadline = new Deadline(deadline);
 
         if (moduleCode == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Module"));
@@ -87,16 +101,35 @@ public class XmlAdaptedTask {
         }
         final String modelDescription = description;
 
-        if (priority == null) {
+        if (priorityLevel == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     PriorityLevel.class.getSimpleName()));
         }
-        if (!PriorityLevel.isValidPriorityLevel(priority)) {
+        if (!PriorityLevel.isValidPriorityLevel(priorityLevel)) {
             throw new IllegalValueException(PriorityLevel.MESSAGE_PRIORITY_CONSTRAINTS);
         }
-        final PriorityLevel modelPriority = new PriorityLevel(priority);
+        final PriorityLevel modelPriority = new PriorityLevel(priorityLevel);
 
-        return new Task(modelDeadline, modelModuleCode, modelTitle, modelDescription, modelPriority);
+        if (expectedNumOfHours == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "Expected number of hours expected to complete"));
+        }
+        final int modelExpectedNumOfHours = Integer.parseInt(expectedNumOfHours);
+
+        final int modelCompletedNumOfHours;
+        if (completedNumOfHours == null) {
+            //throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+            //        "Number of hours taken to complete"));
+            modelCompletedNumOfHours = 0;
+        } else {
+            modelCompletedNumOfHours = Integer.parseInt(completedNumOfHours);
+        }
+
+        //Boolean cannot be checked for null --> if (isCompleted == null)
+        final boolean modelIsCompleted = isCompleted;
+
+        return new Task(modelDeadline, modelModuleCode, modelTitle, modelDescription, modelPriority,
+                modelExpectedNumOfHours, modelCompletedNumOfHours, modelIsCompleted);
     }
 
     @Override
@@ -113,7 +146,7 @@ public class XmlAdaptedTask {
         return Objects.equals(deadline, otherTask.deadline)
                 && Objects.equals(title, otherTask.title)
                 && Objects.equals(description, otherTask.description)
-                && Objects.equals(priority, otherTask.priority);
+                && Objects.equals(priorityLevel, otherTask.priorityLevel);
 
     }
 }

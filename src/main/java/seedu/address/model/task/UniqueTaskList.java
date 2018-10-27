@@ -3,14 +3,13 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.SortTaskList;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -51,7 +50,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * Defer the deadline of the task (@code target) in the list with (@code deadline).
      * (@code target) must exist in the list.
      */
-    public void defer(Task target, String deadline) {
+    public void defer(Task target, Deadline deadline) {
         requireNonNull(target);
         requireNonNull(deadline);
         int index = internalList.indexOf(target);
@@ -96,13 +95,13 @@ public class UniqueTaskList implements Iterable<Task> {
      * Complete a task in the list.
      * The task must exist in the list.
      */
-    public void complete(Task toComplete) {
+    public void complete(Task toComplete, int hours) {
         requireNonNull(toComplete);
         int index = internalList.indexOf(toComplete);
         if (index == -1) {
             throw new TaskNotFoundException();
         }
-        Task completedTask = toComplete.completed();
+        Task completedTask = toComplete.completed(hours);
         internalList.set(index, completedTask);
     }
 

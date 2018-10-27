@@ -2,46 +2,63 @@ package seedu.address.model.task;
 
 import java.util.Objects;
 
-import seedu.address.model.task.exceptions.TaskCompletedException;
-
 /**
  * Represents a Task in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Task {
-    private static final String PLACEHOLDER_DEADLINE = "1/1";
+    private static final Deadline PLACEHOLDER_DEADLINE = new Deadline("1/1/2018");
     private static final String PLACEHOLDER_MODULECODE = "A2113";
     private String moduleCode;
-    private String deadline;
+    private Deadline deadline;
     private final String title;
     private final String description;
     private final PriorityLevel priorityLevel;
-    private boolean isCompleted;
+    private boolean isCompleted = false;
+    //TODO: change to double type for hours
+    private final int expectedNumOfHours;
+    private int completedNumOfHours;
 
-    public Task(String deadline, String moduleCode, String title, String description, PriorityLevel priorityLevel) {
+    public Task(Deadline deadline, String title, String description, PriorityLevel priorityLevel,
+                int expectedNumOfHours) {
+        this.deadline = deadline;
+        this.title = title;
+        this.description = description;
+        this.priorityLevel = priorityLevel;
+        this.expectedNumOfHours = expectedNumOfHours;
+    }
+
+    public Task(Deadline deadline, String moduleCode, String title, String description, PriorityLevel priorityLevel,
+                int expectedNumOfHours, int completedNumOfHours, boolean isCompleted) {
         this.deadline = deadline;
         this.moduleCode = moduleCode;
         this.title = title;
         this.description = description;
         this.priorityLevel = priorityLevel;
-        this.isCompleted = false;
+        this.expectedNumOfHours = expectedNumOfHours;
+        this.completedNumOfHours = completedNumOfHours;
+        this.isCompleted = isCompleted;
     }
 
-    public Task(String title, String description, PriorityLevel priorityLevel) {
+    public Task(String title, String description, PriorityLevel priorityLevel, int expectedNumOfHours) {
         this.deadline = PLACEHOLDER_DEADLINE;
         this.moduleCode = PLACEHOLDER_MODULECODE;
         this.title = title;
         this.description = description;
         this.priorityLevel = priorityLevel;
-        this.isCompleted = false;
+        this.expectedNumOfHours = expectedNumOfHours;
     }
 
-    public String getDeadline() {
+    public Deadline getDeadline() {
         return deadline;
     }
 
     public String getModuleCode() {
         return moduleCode;
+    }
+
+    public void setDeadline(Deadline deadline) {
+        this.deadline = deadline;
     }
 
     public String getTitle() {
@@ -61,6 +78,13 @@ public class Task {
         return priorityLevel.priorityLevelInt;
     }
 
+    public int getExpectedNumOfHours() {
+        return expectedNumOfHours;
+    }
+    public int getCompletedNumOfHours() {
+        return completedNumOfHours;
+    }
+
     public boolean isCompleted() {
         return isCompleted;
     }
@@ -68,13 +92,10 @@ public class Task {
     /**
      * Marks the task as completed by
      * setting @code {isCompleted} to true
-     * If task is already completed, {@throws TaskCompletedException}
      */
-    public Task completed() {
-        if (isCompleted) {
-            throw new TaskCompletedException();
-        }
+    public Task completed(int hours) {
         this.isCompleted = true;
+        this.completedNumOfHours = hours;
         return this;
     }
 
@@ -97,7 +118,7 @@ public class Task {
      * @param deadline
      * @return the new Task
      */
-    public Task deferred(String deadline) {
+    public Task deferred(Deadline deadline) {
         this.deadline = deadline;
         return this;
     }
@@ -117,16 +138,19 @@ public class Task {
 
         Task otherTask = (Task) other;
         return otherTask.getTitle().equals(getTitle())
-                && otherTask.getDeadline().equals(getTitle())
+                && otherTask.getDeadline().equals(getDeadline())
                 && otherTask.getDescription().equals(getDescription())
                 && otherTask.getPriorityLevel().equals(getPriorityLevel())
-                && otherTask.isCompleted() == isCompleted();
+                && otherTask.isCompleted() == isCompleted()
+                && otherTask.getExpectedNumOfHours() == getExpectedNumOfHours()
+                && otherTask.getCompletedNumOfHours() == getCompletedNumOfHours();
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(deadline, title, description, priorityLevel, isCompleted);
+        return Objects.hash(deadline, title, description, priorityLevel, expectedNumOfHours,
+                completedNumOfHours, isCompleted);
     }
 
     @Override
@@ -139,11 +163,6 @@ public class Task {
                 .append(getDescription())
                 .append(" Priority: ")
                 .append(getPriorityLevel());
-        if (isCompleted) {
-            builder.append(" => Completed!");
-        } else {
-            builder.append(" => Not completed!");
-        }
         return builder.toString();
     }
 }

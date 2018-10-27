@@ -24,6 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedTaskBook versionedTaskBook;
     private final FilteredList<Task> filteredTasks;
+    private Predicate<Task> predicateShowCompletedTasks = Task::isCompleted;
 
     /**
      * Initializes a ModelManager with the given taskBook and userPrefs.
@@ -67,10 +68,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author ChanChunCheong
     @Override
-    public void deferTaskDeadline(Task target, String deadline) {
+    public void deferTaskDeadline(Task target, Deadline deadline) {
         versionedTaskBook.deferDeadline(target, deadline);
         indicateTaskBookChanged();
     }
+
     //@@author chelseyong
     @Override
     public void deleteTask(Task target) {
@@ -79,8 +81,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void completeTask(Task target) {
-        versionedTaskBook.completeTask(target);
+    public void completeTask(Task target, int hours) {
+        versionedTaskBook.completeTask(target, hours);
         indicateTaskBookChanged();
     }
 
@@ -89,13 +91,6 @@ public class ModelManager extends ComponentManager implements Model {
         versionedTaskBook.addTask(task);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         indicateTaskBookChanged();
-    }
-    //@@author emobeany
-    @Override
-    public void selectDeadline(Deadline deadline) {
-        versionedTaskBook.selectDeadline(deadline);
-        //updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
-        //indicateTaskBookChanged();
     }
 
     //@@author ChanChunCheong
@@ -106,13 +101,33 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
-    //@@author
     @Override
     public void updateTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
-
         versionedTaskBook.updateTask(target, editedTask);
         indicateTaskBookChanged();
+    }
+
+    //@@author emobeany
+    @Override
+    public void selectDeadline(Deadline deadline) {
+        versionedTaskBook.selectDeadline(deadline);
+        updateFilteredTaskList(predicateShowTasksWithSameDate(deadline));
+        indicateTaskBookChanged();
+    }
+
+    /**{@code Predicate} that returns true when the date is equal*/
+    private Predicate<Task> predicateShowTasksWithSameDate(Deadline deadline) {
+        return task -> task.getDeadline().equals(deadline);
+    }
+
+    public Deadline getDeadline() {
+        return versionedTaskBook.getDeadline();
+    }
+
+    @Override
+    public boolean validDeadline(Deadline deadline) {
+        return versionedTaskBook.validDeadline(deadline);
     }
 
     //@@author JeremyInElysium
@@ -122,7 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         indicateTaskBookChanged();
     }
-    //@@author
+
     //=========== Filtered Task List Accessors =============================================================
 
     /**
@@ -186,12 +201,13 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedTaskBook.equals(other.versionedTaskBook)
                 && filteredTasks.equals(other.filteredTasks);
     }
-
-    /*
-    //=========== Deadline Accessors =============================================================
-    @Override
-    public void selectDeadline(Deadline deadline);
-    @Override
-    public boolean invalidDeadline(Deadline deadline);
-    */
+    //@@author chelseyong
+    /**
+     * Updates the task to completed tasks only
+     * So that productivity can be correctly calculated
+     */
+    public void trackProductivity() {
+        updateFilteredTaskList(predicateShowCompletedTasks);
+        indicateTaskBookChanged();
+    }
 }

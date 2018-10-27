@@ -6,8 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SORT;
 
 import java.util.stream.Stream;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.SortTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -15,7 +13,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new SortTaskCommand object
  */
-public class SortTaskCommandParser implements Parser<SortTaskCommand>{
+public class SortTaskCommandParser implements Parser<SortTaskCommand> {
+    @Override
     public SortTaskCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SORT);
