@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Task Book - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
@@ -34,7 +34,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all tasks for that day
-* **`add`**`t/Complete 2113 Tutorial d/finish the code p/low h/2` : adds a new task to the Task Book.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -55,21 +54,21 @@ Format: `help`
 
 === Adding a task: `add`
 
-Adds a task with its title, description, priority level (low, medium, high) and the number of hours (integers only) expected to complete this task, to the task book +
-Format: `add t/TITLE d/DESCRIPTION p/PRIORITY h/HOURS`
+Adds a task with its module code, title, description, priority level (low, medium, high) and the number of hours (integers only) expected to complete this task, to the task book +
+Format: `add c/MODULE_CODE t/TITLE d/DESCRIPTION p/PRIORITY h/HOURS`
 
 Examples:
 
-* `add t/Complete 2113 Tutorial d/with code done p/high h/1`
+* `add c/CS2113 t/Complete 2113 Tutorial d/with code done p/high h/1`
 
 === Adding a milestone: `add_milestone`
 
 Adds a milestone to selected task from the task book +
-Format: `add_milestone t/TASK_TITLE m/MILESTONE r/RANK...`
+Format: `add_milestone i/INDEX m/MILESTONE r/RANK`
 
 Examples:
 
-* `add_milestone t/Complete CS2113 W8 LO m/Complete Sections 8.1 to 8.5 r/1`
+* `add_milestone i/1 m/Complete Sections 8.1 to 8.5 r/1`
 
 === Complete a task: `complete`
 
@@ -82,14 +81,14 @@ Examples:
 
 === Sort the taskbook: `sort`
 
-Sort the tasks in the task book +
-Format: `sort t/ACTION d/DAY [w/WEEK] [m/MONTH]...`
+Sort the tasks in the task book via `priority`, `deadlines`, `modules`, or `title` +
+Format: `sort s/METHOD`
 
 Examples:
 
-* `sort t/Complete 2113 Tutorial d/Wed w/2`
+* `sort s/priority`
 
-=== Deferring a deadline: `deadline`
+=== Deferring a deadline: `defer`
 
 Defers a deadline for a task +
 Format: `defer [INDEX] de/deadline`
@@ -110,12 +109,14 @@ Examples:
 === Selecting a date: `select`
 
 Chooses a particular date. +
-Format: `select dd/DAY [mm/MONTH] [yyyy/YEAR]`
+//Format: `select dd/DAY [mm/MONTH] [yyyy/YEAR]`
+Format: `select dd/DAY mm/MONTH yyyy/YEAR` or
+`select DAY/MONTH/YEAR`
 
 Examples:
 
-* `select dd/1`
-* `select dd/1 mm/1`
+//* `select dd/1`
+//* `select dd/1 mm/1`
 * `select dd/1 mm/1 yyyy/2018`
 
 === Tracking productivity : `track`
@@ -140,7 +141,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, and `clear`).
+Undoable commands: those commands that modify the address book's content (`add`, `complete`, `sort`, `add_milestone`, `defer_deadline`, `delete`, `select` and `clear`).
 ====
 
 Examples:
@@ -149,7 +150,7 @@ Examples:
 `list` +
 `undo` (reverses the `delete 1` command) +
 
-* `select 1` +
+* `track` +
 `list` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
@@ -204,21 +205,24 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Add task* : `add t/ACTION d/DESCRIPTION p/PRIORITY_LEVEL h/HOURS_TO_COMPLETE` +
-e.g. `add t/Complete 2113 Tutorial d/with code done p/high h/2`
+* *Add task* : `add c/MODULE_CODE t/ACTION d/DESCRIPTION p/PRIORITY_LEVEL h/HOURS_TO_COMPLETE` +
+e.g. `add c/CS2113 t/Complete 2113 Tutorial d/with code done p/high h/2`
 * *Add milestone* : `add_milestone t/TASK_TITLE m/MILESTONE r/RANK...` +
 e.g. `add_milestone t/Complete CS2113 W8 LO m/Complete Sections 8.1 to 8.5 r/1`
 * *Clear* : `clear`
 * *Complete* : `complete i/INDEX h/HOURS_COMPLETED`
 e.g. `complete i/1 h/2`
-* *Defer deadline* : `defer_deadline t/ACTION w/WEEKS_OF_DEFERMENT` +
-e.g. `defer_deadline t/Complete 2113 Tutorial w/1`
+* *Defer deadline* : `defer_deadline INDEX de/DEADLINE` +
+e.g. `defer_deadline 1 de/01012018`
 * *Delete* : `delete INDEX`
 e.g. `delete 1`
 * *List* : `list`
 * *Help* : `help`
 * *History* : `history`
-* *Select* : `select dd/DAY mm/MONTH yyyy/YEAR` +
+* *Select* : `select dd/DAY mm/MONTH yyyy/YEAR` or `select DAY/MONTH/YEAR` +
 e.g. `select dd/1 mm/1 yyyy/2018`
+* *Sort* : `sort s/METHOD`
+e.g. `sort s/priority` +
+* *Track* : `track`
 * *Undo* : `undo`
 * *Redo* : `redo`

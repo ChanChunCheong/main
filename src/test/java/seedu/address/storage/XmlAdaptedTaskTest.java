@@ -38,8 +38,8 @@ public class XmlAdaptedTaskTest {
     @Test
     public void toModelType_invalidDeadline_throwsIllegalValueException() {
         XmlAdaptedTask task =
-                new XmlAdaptedTask(INVALID_DEADLINE, VALID_MODULECODE, VALID_TITLE, VALID_DESCRIPTION, VALID_PRIORITY_LEVEL,
-                        VALID_EXPECTED_NUM_OF_HOURS);
+                new XmlAdaptedTask(INVALID_DEADLINE, VALID_MODULECODE, VALID_TITLE, VALID_DESCRIPTION,
+                        VALID_PRIORITY_LEVEL, VALID_EXPECTED_NUM_OF_HOURS);
         String expectedMessage = Deadline.MESSAGE_DEADLINE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
     }

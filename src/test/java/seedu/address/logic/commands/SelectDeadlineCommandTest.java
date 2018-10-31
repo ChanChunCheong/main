@@ -4,11 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.MAX_HOURS;
-import static seedu.address.testutil.TaskBuilder.DEFAULT_DEADLINE;
+import static seedu.address.testutil.TypicalDeadlines.INVALID_32ND_JAN_2018;
+import static seedu.address.testutil.TypicalDeadlines.VALID_1ST_APR_2018;
+import static seedu.address.testutil.TypicalDeadlines.VALID_1ST_JAN_2018;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -16,7 +15,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -24,9 +22,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.task.Deadline;
 import seedu.address.model.task.Task;
-import seedu.address.testutil.TaskBuilder;
 
-public class AddTaskCommandTest {
+public class SelectDeadlineCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
@@ -35,78 +32,55 @@ public class AddTaskCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullDeadline_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddTaskCommand(null);
+        new SelectDeadlineCommand(null);
     }
 
     @Test
-    public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        Task validTask = new TaskBuilder().build();
+    public void execute_deadlineAcceptedByModel_selectSuccessful() throws Exception {
+        ModelStubAcceptingDeadlineSelected modelStub = new ModelStubAcceptingDeadlineSelected();
+        Deadline validDeadline = VALID_1ST_JAN_2018;
 
-        CommandResult commandResult = new AddTaskCommand(validTask).execute(modelStub, commandHistory);
+        CommandResult commandResult = new SelectDeadlineCommand(validDeadline).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
+        assertEquals(String.format(SelectDeadlineCommand.MESSAGE_SUCCESS, validDeadline), commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicateTask_throwsCommandException() throws Exception {
-        Task validTask = new TaskBuilder().build();
-        AddTaskCommand addCommand = new AddTaskCommand(validTask);
-        ModelStub modelStub = new ModelStubWithTask(validTask);
+    public void execute_invalidDeadline_throwCommandException() throws Exception {
+        Deadline invalidDeadline = INVALID_32ND_JAN_2018;
+        SelectDeadlineCommand selectCommand = new SelectDeadlineCommand(invalidDeadline);
+        ModelStub modelStub = new ModelStubWithDeadline(invalidDeadline);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddTaskCommand.MESSAGE_DUPLICATE_TASK);
-        addCommand.execute(modelStub, commandHistory);
-    }
-
-    @Test
-    public void execute_taskWithZeroHourCompletion_throwsCommandException() throws Exception {
-        Task validTask = new TaskBuilder().withExpectedNumOfHours(0).build();
-        AddTaskCommand addCommand = new AddTaskCommand(validTask);
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(Messages.MESSAGE_ZERO_HOURS_COMPLETION);
-        addCommand.execute(modelStub, commandHistory);
-    }
-
-    @Test
-    public void execute_taskWithMaxHourCompletion_throwsCommandException() throws Exception {
-        Task validTask = new TaskBuilder().withExpectedNumOfHours(MAX_HOURS).build();
-        AddTaskCommand addCommand = new AddTaskCommand(validTask);
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(Messages.MESSAGE_MAX_HOURS);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(SelectDeadlineCommand.MESSAGE_INVALID_DEADLINE);
+        selectCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Task jan1st = new TaskBuilder().withDeadline("1/1/2018").build();
-        Task nov1st = new TaskBuilder().withDeadline("1/11/2018").build();
-        AddTaskCommand addJan1stCommand = new AddTaskCommand(jan1st);
-        AddTaskCommand addNov1stCommand = new AddTaskCommand(nov1st);
+        Deadline jan1st2018 = VALID_1ST_JAN_2018;
+        Deadline apr1st2018 = VALID_1ST_APR_2018;
+        SelectDeadlineCommand selectJan1st2018Command = new SelectDeadlineCommand(jan1st2018);
+        SelectDeadlineCommand selectApr1st2018Command = new SelectDeadlineCommand(apr1st2018);
+        SelectDeadlineCommand selectJan1st2018CommandCopy = new SelectDeadlineCommand(jan1st2018);
 
-        // same object -> returns true
-        assertTrue(addJan1stCommand.equals(addJan1stCommand));
+        // Same object -> returns true
+        assertTrue(selectJan1st2018Command.equals(selectJan1st2018Command));
 
-        // same values -> returns true
-        AddTaskCommand addJan1stCommandCopy = new AddTaskCommand(jan1st);
-        assertTrue(addJan1stCommand.equals(addJan1stCommandCopy));
+        // Same deadline -> returns true
+        assertTrue(selectJan1st2018Command.equals(selectJan1st2018CommandCopy));
 
-        // different types -> returns false
-        assertFalse(addJan1stCommand.equals(1));
+        // Null -> returns false
+        assertFalse(selectJan1st2018Command.equals(null));
 
-        // null -> returns false
-        assertFalse(addJan1stCommand.equals(null));
+        // Different types -> returns false
+        assertFalse(selectJan1st2018Command.equals(1));
 
-        // different task -> returns false
-        assertFalse(addJan1stCommand.equals(addNov1stCommand));
+        // Different deadline -> returns false
+        assertFalse(selectJan1st2018Command.equals(selectApr1st2018Command));
     }
 
     /**
@@ -130,7 +104,7 @@ public class AddTaskCommandTest {
 
         @Override
         public Deadline getDeadline() {
-            return new Deadline(DEFAULT_DEADLINE);
+            return new Deadline(VALID_1ST_JAN_2018.toString());
         }
 
         @Override
@@ -215,44 +189,43 @@ public class AddTaskCommandTest {
     }
 
     /**
-     * A Model stub that contains a single task.
+     * A default model stub that contains a single task.
      */
-    private class ModelStubWithTask extends ModelStub {
-        private final Task task;
 
-        ModelStubWithTask(Task task) {
-            requireNonNull(task);
-            this.task = task;
+    private class ModelStubWithDeadline extends ModelStub {
+        private final Deadline deadline;
+
+        ModelStubWithDeadline(Deadline deadline) {
+            requireNonNull(deadline);
+            this.deadline = deadline;
         }
 
         @Override
-        public boolean hasTask(Task task) {
-            requireNonNull(task);
-            return this.task.isSameTask(task);
+        public boolean validDeadline(Deadline deadline) {
+            requireNonNull(deadline);
+            return Deadline.isValidDeadline(this.deadline.toString());
         }
     }
 
     /**
-     * A Model stub that always accept the task being added.
+     * A model stub that always accepts the deadline being selected.
      */
-    private class ModelStubAcceptingTaskAdded extends ModelStub {
-        final ArrayList<Task> tasksAdded = new ArrayList<>();
+    private class ModelStubAcceptingDeadlineSelected extends ModelStub {
 
         @Override
-        public boolean hasTask(Task task) {
-            requireNonNull(task);
-            return tasksAdded.stream().anyMatch(task::isSameTask);
+        public boolean validDeadline(Deadline deadlineSelected) {
+            requireNonNull(deadlineSelected);
+            return Deadline.isValidDeadline(deadlineSelected.toString());
         }
 
         @Override
-        public void addTask(Task task) {
-            requireNonNull(task);
-            tasksAdded.add(task);
+        public void selectDeadline(Deadline deadline) {
+            requireNonNull(deadline);
         }
 
         @Override
         public void commitTaskBook() {
-            // called by {@code AddTaskCommand#execute()}
+            // called by {@code SelectDeadlineCommand#execute()}
         }
 
         @Override

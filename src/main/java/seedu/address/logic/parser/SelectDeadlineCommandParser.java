@@ -19,6 +19,10 @@ public class SelectDeadlineCommandParser implements Parser<SelectDeadlineCommand
 
     @Override
     public SelectDeadlineCommand parse(String userInput) throws ParseException {
+        Deadline deadlineWithoutPrefixes = parseWithoutPrefixes(userInput);
+        if (deadlineWithoutPrefixes != null) {
+            return new SelectDeadlineCommand(deadlineWithoutPrefixes);
+        }
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR);
 
@@ -32,7 +36,6 @@ public class SelectDeadlineCommandParser implements Parser<SelectDeadlineCommand
         String month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());
         String year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
         Deadline deadline = new Deadline(day, month, year);
-        //
 
         return new SelectDeadlineCommand(deadline);
     }
@@ -41,7 +44,20 @@ public class SelectDeadlineCommandParser implements Parser<SelectDeadlineCommand
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+    protected static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Alternative parsing method:
+     * @param userInput without date, month and year prefixes
+     * @return the parsed Deadline
+     */
+    public Deadline parseWithoutPrefixes(String userInput) {
+        try {
+            return ParserUtil.parseDeadline(userInput);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 }
