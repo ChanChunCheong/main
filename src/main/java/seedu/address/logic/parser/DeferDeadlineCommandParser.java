@@ -2,7 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.stream.Stream;
 
@@ -38,16 +41,24 @@ public class DeferDeadlineCommandParser implements Parser<DeferDeadlineCommand> 
      */
     public DeferDeadlineCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DEADLINE);
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeferDeadlineCommand.MESSAGE_USAGE), ive);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_DAY, PREFIX_MONTH,
+                PREFIX_YEAR);
+        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeferDeadlineCommand.MESSAGE_USAGE));
         }
-        String deadlineInput = argMultimap.getValue(PREFIX_DEADLINE).orElse("");
-        Deadline deadline = new Deadline(deadlineInput);
+
+        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).orElse(""));
+        String day = argMultimap.getValue(PREFIX_DAY).orElse("");
+        String month = argMultimap.getValue(PREFIX_MONTH).orElse("");
+        String year = argMultimap.getValue(PREFIX_YEAR).orElse("");
+        Deadline deadline = new Deadline(day, month, year);
+
+        if (!deadline.isValidDeadline(deadline.toString())) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeferDeadlineCommand.MESSAGE_USAGE));
+        }
+
+
         return new DeferDeadlineCommand(index, deadline);
     }
 
