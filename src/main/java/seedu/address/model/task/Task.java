@@ -92,7 +92,6 @@ public class Task {
     public int getPriorityLevelInt() {
         return priorityLevel.priorityLevelInt;
     }
-
     //@@author
     public int getExpectedNumOfHours() {
         return expectedNumOfHours;

@@ -65,7 +65,6 @@ public class AddTaskCommand extends Command implements CommandParser {
         toAdd.setDeadline(model.getDeadline());
         model.addTask(toAdd);
         model.commitTaskBook();
-        System.out.println("oh yea3");
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

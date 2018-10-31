@@ -54,7 +54,8 @@ public class XmlAdaptedTaskTest {
 
     @Test
     public void toModelType_invalidPriorityLevel_throwsIllegalValueException() {
-        XmlAdaptedTask task = new XmlAdaptedTask(VALID_DEADLINE, VALID_MODULECODE, VALID_TITLE, VALID_DESCRIPTION,
+        XmlAdaptedTask task =
+                new XmlAdaptedTask(VALID_DEADLINE, VALID_MODULECODE, VALID_TITLE, VALID_DESCRIPTION,
                         INVALID_PRIORITY_LEVEL, VALID_EXPECTED_NUM_OF_HOURS);
         String expectedMessage = PriorityLevel.MESSAGE_PRIORITY_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, task::toModelType);
@@ -70,7 +71,8 @@ public class XmlAdaptedTaskTest {
 
     @Test
     public void toModelType_invalidExpectedNumOfHours_throwsIllegalValueException() {
-        XmlAdaptedTask task = new XmlAdaptedTask(VALID_DEADLINE, VALID_MODULECODE, VALID_TITLE, VALID_DESCRIPTION,
+        XmlAdaptedTask task =
+                new XmlAdaptedTask(VALID_DEADLINE, VALID_MODULECODE, VALID_TITLE, VALID_DESCRIPTION,
                         VALID_PRIORITY_LEVEL, INVALID_EXPECTED_NUM_OF_HOURS);
         String expectedMessage = "Expected number of hours have to be an integer";
         Assert.assertThrows(NumberFormatException.class, task::toModelType);
@@ -80,7 +82,6 @@ public class XmlAdaptedTaskTest {
     public void toModelType_nullExpectedNumOfHours_throwsIllegalValueException() {
         XmlAdaptedTask person = new XmlAdaptedTask(VALID_DEADLINE, VALID_MODULECODE, VALID_TITLE, VALID_DESCRIPTION,
                 VALID_PRIORITY_LEVEL, null);
-
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 "Expected number of hours expected to complete");
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
