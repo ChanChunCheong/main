@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Deadline;
 import seedu.address.model.task.SortTaskList;
 import seedu.address.model.task.Task;
@@ -76,6 +77,14 @@ public class AddressBook implements ReadOnlyTaskBook {
      */
     public void addTask(Task t) {
         tasks.add(t);
+    }
+
+    /**
+     * Adds a tag to a tag in the address book.
+     * The tag must not already exist in the task.
+     */
+    public void addTag(Task target, Tag tag) {
+        tasks.addTag(target, tag);
     }
 
     /**

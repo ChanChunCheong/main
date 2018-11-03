@@ -1,9 +1,8 @@
 package seedu.address.model.task;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import seedu.address.model.tag.Tag;
+
+import java.util.*;
 
 /**
  * Represents a Task in the address book.
@@ -21,6 +20,7 @@ public class Task {
     private final int expectedNumOfHours;
     private int completedNumOfHours;
     private final Set<Milestone> milestoneList = new HashSet<>();
+    private final SortedSet<Tag> tagList = new TreeSet<>();
     public Task(Deadline deadline, String moduleCode, String title, String description, PriorityLevel priorityLevel,
                 int expectedNumOfHours) {
         this.deadline = deadline;
@@ -32,7 +32,8 @@ public class Task {
     }
 
     public Task(Deadline deadline, String moduleCode, String title, String description, PriorityLevel priorityLevel,
-                int expectedNumOfHours, int completedNumOfHours, boolean isCompleted, Set<Milestone> milestoneList) {
+                int expectedNumOfHours, int completedNumOfHours, boolean isCompleted, Set<Milestone> milestoneList,
+                SortedSet<Tag> tagList) {
         this.deadline = deadline;
         this.moduleCode = moduleCode;
         this.title = title;
@@ -42,6 +43,7 @@ public class Task {
         this.completedNumOfHours = completedNumOfHours;
         this.isCompleted = isCompleted;
         this.milestoneList.addAll(milestoneList);
+        this.tagList.addAll(tagList);
     }
 
     public Task(String moduleCode, String title, String description,
@@ -63,6 +65,7 @@ public class Task {
         this.expectedNumOfHours = other.expectedNumOfHours;
         this.completedNumOfHours = other.completedNumOfHours;
         this.milestoneList.addAll(other.milestoneList);
+        this.tagList.addAll(other.tagList);
     }
 
     public Deadline getDeadline() {
@@ -99,6 +102,9 @@ public class Task {
     public int getCompletedNumOfHours() {
         return completedNumOfHours;
     }
+    public SortedSet<Tag> getTags() {
+        return Collections.unmodifiableSortedSet(tagList);
+    }
 
     public boolean isCompleted() {
         return isCompleted;
@@ -130,6 +136,18 @@ public class Task {
 
     //@@author ChanChunCheong
     /**
+     * Add tag to a task
+     * @param tag
+     * @return the new Task
+     */
+    public Task addTag(Tag tag) {
+        Task deferredTask = new Task(this);
+        deferredTask.tagList.add(tag);
+        return deferredTask;
+    }
+
+    //@@author ChanChunCheong
+    /**
      * Defers the task to a later
      * @param deadline
      * @return the new Task
@@ -139,6 +157,7 @@ public class Task {
         deferredTask.deadline = deadline;
         return deferredTask;
     }
+
 
     //@@JeremyInElysium
     /**
@@ -178,6 +197,8 @@ public class Task {
                 && otherTask.isCompleted() == isCompleted()
                 && otherTask.getExpectedNumOfHours() == getExpectedNumOfHours()
                 && otherTask.getCompletedNumOfHours() == getCompletedNumOfHours();
+                //&& otherTask.getMilestoneList().equals(getMilestoneList())
+                //&& otherTask.getTags().equals(getTags());
     }
 
     @Override

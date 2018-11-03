@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
@@ -43,6 +44,22 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
+    }
+
+    //@@author ChanChunCheong
+    /**
+     * Adds a task to the list.
+     * The task must not already exist in the list.
+     */
+    public void addTag(Task target, Tag tag) {
+        requireNonNull(target);
+        requireNonNull(tag);
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new TaskNotFoundException();
+        }
+        Task deferredTask = target.addTag(tag);
+        internalList.set(index, deferredTask);
     }
 
     //@@author ChanChunCheong

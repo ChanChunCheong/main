@@ -1,15 +1,12 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Deadline;
 import seedu.address.model.task.Milestone;
 import seedu.address.model.task.PriorityLevel;
@@ -39,6 +36,8 @@ public class XmlAdaptedTask {
     private boolean isCompleted;
     @XmlElement
     private List<XmlAdaptedMilestone> milestonelist;
+    @XmlElement
+    private SortedSet<Tag> tagList;
 
     /**
      * Constructs an XmlAdaptedTask.
@@ -96,6 +95,7 @@ public class XmlAdaptedTask {
         completedNumOfHours = Integer.toString(source.getCompletedNumOfHours());
         isCompleted = source.isCompleted();
         milestonelist = source.getMilestoneList().stream().map(XmlAdaptedMilestone::new).collect(Collectors.toList());
+        tagList = source.getTags();
     }
 
     /**
@@ -164,9 +164,17 @@ public class XmlAdaptedTask {
 
         }
 
+        final SortedSet<Tag> tags = new TreeSet<>();
+        if (tags != null && !tags.isEmpty()) {
+            for (XmlAdaptedMilestone entry : milestonelist) {
+                milestoneEntries.add(entry.toModelType());
+            }
+
+        }
+
         return new Task(modelDeadline, modelModuleCode, modelTitle, modelDescription,
                 modelPriority, modelExpectedNumOfHours,
-                modelCompletedNumOfHours, modelIsCompleted, milestoneEntries);
+                modelCompletedNumOfHours, modelIsCompleted, milestoneEntries, tags);
     }
 
     @Override
