@@ -108,13 +108,20 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
-    //@@author ChanChunCheong
+    @Override
+    public void removeTag(Task task, Tag tag) {
+        versionedTaskBook.removeTag(task, tag);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        indicateTaskBookChanged();
+    }
+
     @Override
     public void sortTask(String method) {
         versionedTaskBook.sortTask(method);
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         indicateTaskBookChanged();
     }
+    //@@author
 
     //@@author emobeany
     @Override

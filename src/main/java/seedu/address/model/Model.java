@@ -52,10 +52,16 @@ public interface Model {
 
     //@@author ChanChunCheong
     /**
-     * Adds the given task.
+     * Adds the to the selected task.
      * {@code task} must not already exist in the task book.
      */
     void addTag(Task task, Tag tag);
+
+    /**
+     * Removes the tag from the selected task.
+     * {@code task} must not already exist in the task book.
+     */
+    void removeTag(Task task, Tag tag);
 
     //@@author emobeany
     /** Selects the input date as deadline.*/

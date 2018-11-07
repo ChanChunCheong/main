@@ -1,6 +1,8 @@
 package seedu.address.model.task;
 
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.exceptions.TagNotFoundException;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -139,9 +141,16 @@ public class Task {
      */
     public Task addTag(Tag tag) {
         Task deferredTask = new Task(this);
-        System.out.println("Yea 3");
         deferredTask.tagList.add(tag);
-        System.out.println("Yea 3");
+        return deferredTask;
+    }
+
+    public Task removeTag(Tag tag) {
+        Task deferredTask = new Task(this);
+        if (!deferredTask.tagList.remove(tag)) {
+            throw new TagNotFoundException();
+        }
+        deferredTask.tagList.remove(tag);
         return deferredTask;
     }
 

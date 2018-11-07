@@ -20,6 +20,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RemoveTagCommand;
 import seedu.address.logic.commands.SelectDeadlineCommand;
 import seedu.address.logic.commands.SortTaskCommand;
 import seedu.address.logic.commands.TrackProductivityCommand;
@@ -60,6 +61,7 @@ public class LogicManager extends ComponentManager implements Logic {
                 new RedoCommand(),
                 new AddMilestoneCommand(),
                 new AddTagCommand(),
+                new RemoveTagCommand(),
                 new EditTaskCommand()
         );
     }

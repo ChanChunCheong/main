@@ -3,8 +3,10 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -67,9 +69,42 @@ public class UniqueTaskList implements Iterable<Task> {
         if (index == -1) {
             throw new TaskNotFoundException();
         }
-        Task deferredTask = target.addTag(tag);
-        internalList.set(index, deferredTask);
+        Task targetedTask = target.addTag(tag);
+        internalList.set(index, targetedTask);
     }
+    /**
+     * Removes {@code tag} from {@code person} in this {@code AddressBook}.
+     */
+    public void removeTagFromTask(Task target, Tag tag) {
+        requireNonNull(target);
+        requireNonNull(tag);
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new TaskNotFoundException();
+        }
+        /*
+        Set<Tag> newTags = new HashSet<>(target.getTags());
+        if (!newTags.remove(tag)) {
+            return;
+        }
+
+        Task newTask =
+                new (newTask.get(), newTask.getPhone(), newTask.getEmail(), newTask.getAddress(), newTaskTags);
+        updateTask(Task, newTask);
+        */
+        Task targetedTask = target.removeTag(tag);
+        internalList.set(index, targetedTask);
+    }
+
+
+    /**
+     * Removes {@code tag} from all persons in this {@code AddressBook}.
+     */
+    /*
+    public void removeTag(Tag tag) {
+        Tasks.forEach(Tasks -> removeTagFromPerson(tag, task));
+    }
+    */
 
     //@@author ChanChunCheong
     /**

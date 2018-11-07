@@ -88,7 +88,7 @@ public class AddressBook implements ReadOnlyTaskBook {
         tasks.add(t);
     }
 
-    //@@suthor emobeany
+    //@@author ChanChunCheong
     /**
      * Adds a tag to a tag in the address book.
      * The tag must not already exist in the task.
@@ -96,6 +96,16 @@ public class AddressBook implements ReadOnlyTaskBook {
     public void addTag(Task target, Tag tag) {
         tasks.addTag(target, tag);
     }
+
+    //@@author ChanChunCheong
+    /**
+     * Adds a tag to a tag in the address book.
+     * The tag must not already exist in the task.
+     */
+    public void removeTag(Task target, Tag tag) {
+        tasks.removeTagFromTask(target, tag);
+    }
+
 
     /**
      * Replaces the given task {@code target} in the list with {@code editedPerson}.
