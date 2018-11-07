@@ -72,6 +72,12 @@
             <FlowPane fx:id="milestones" hgap="10" prefHeight="0.0" prefWidth="200.0" />
          </children>
       </HBox>
+      <HBox prefHeight="30.0" prefWidth="264.0" spacing="10">
+         <children>
+            <Label text="Tags:" />
+            <FlowPane fx:id="tags" hgap="10" prefHeight="0.0" prefWidth="200.0" />
+         </children>
+      </HBox>
    </children>
    <padding>
       <Insets left="7.0" />

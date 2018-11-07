@@ -2,7 +2,12 @@ package seedu.address.model.task;
 
 import seedu.address.model.tag.Tag;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * Represents a Task in the address book.
@@ -20,7 +25,7 @@ public class Task {
     private final int expectedNumOfHours;
     private int completedNumOfHours;
     private final List<Milestone> milestoneList = new ArrayList<Milestone>();
-    private final SortedSet<Tag> tagList = new TreeSet<Tag>();
+    private final Set<Tag> tagList = new HashSet<>();
 
     public Task(Deadline deadline, ModuleCode moduleCode, String title, String description, PriorityLevel priorityLevel,
                 int expectedNumOfHours) {
@@ -34,7 +39,7 @@ public class Task {
 
     public Task(Deadline deadline, ModuleCode moduleCode, String title, String description, PriorityLevel priorityLevel,
                 int expectedNumOfHours, int completedNumOfHours, boolean isCompleted,
-                List<Milestone> milestoneList, SortedSet<Tag> tagList) {
+                List<Milestone> milestoneList, Set<Tag> tagList) {
         this.deadline = deadline;
         this.moduleCode = moduleCode;
         this.title = title;
@@ -94,8 +99,8 @@ public class Task {
     public int getCompletedNumOfHours() {
         return completedNumOfHours;
     }
-    public SortedSet<Tag> getTags() {
-        return Collections.unmodifiableSortedSet(tagList);
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tagList);
     }
 
     public boolean isCompleted() {

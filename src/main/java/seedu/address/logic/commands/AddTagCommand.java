@@ -67,7 +67,6 @@ public class AddTagCommand extends Command implements CommandParser {
 
         Task taskToAdd = lastShownList.get(index.getZeroBased());
         model.addTag(taskToAdd, tag);
-        System.out.println("Yea");
         model.commitTaskBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToAdd.getTitle(), tag.toString()));
     }

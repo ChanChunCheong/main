@@ -8,9 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.SortedSet;
+import java.util.*;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -118,7 +116,7 @@ public class EditTaskCommand extends Command implements CommandParser {
         int completedNumOfHours = taskToEdit.getCompletedNumOfHours();
         boolean isCompleted = taskToEdit.isCompleted();
         List<Milestone> milestoneList = taskToEdit.getMilestoneList();
-        SortedSet<Tag> tag = taskToEdit.getTags();
+        Set<Tag> tag = taskToEdit.getTags();
 
         return new Task(deadline, updatedModuleCode, updatedTitle, updatedDescription, updatedPriority, updatedHours,
                 completedNumOfHours, isCompleted, milestoneList, tag);
