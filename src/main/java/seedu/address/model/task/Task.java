@@ -1,8 +1,12 @@
 package seedu.address.model.task;
 
 import seedu.address.model.tag.Tag;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Represents a Task in the address book.
@@ -12,16 +16,16 @@ public class Task {
 
     //private static final String PLACEHOLDER_MODULECODE = "A2113";
     private Deadline deadline;
-    private String moduleCode;
+    private ModuleCode moduleCode;
     private final String title;
     private final String description;
     private final PriorityLevel priorityLevel;
     private boolean isCompleted = false;
     private final int expectedNumOfHours;
     private int completedNumOfHours;
-    private final Set<Milestone> milestoneList = new HashSet<>();
-    private final SortedSet<Tag> tagList = new TreeSet<>();
-    public Task(Deadline deadline, String moduleCode, String title, String description, PriorityLevel priorityLevel,
+    private final List<Milestone> milestoneList = new ArrayList<Milestone>();
+    private final SortedSet<Tag> tagList = new TreeSet<Tag>();
+    public Task(Deadline deadline, ModuleCode moduleCode, String title, String description, PriorityLevel priorityLevel,
                 int expectedNumOfHours) {
         this.deadline = deadline;
         this.moduleCode = moduleCode;
@@ -31,9 +35,9 @@ public class Task {
         this.expectedNumOfHours = expectedNumOfHours;
     }
 
-    public Task(Deadline deadline, String moduleCode, String title, String description, PriorityLevel priorityLevel,
-                int expectedNumOfHours, int completedNumOfHours, boolean isCompleted, Set<Milestone> milestoneList,
-                SortedSet<Tag> tagList) {
+    public Task(Deadline deadline, ModuleCode moduleCode, String title, String description, PriorityLevel priorityLevel,
+                int expectedNumOfHours, int completedNumOfHours, boolean isCompleted,
+                List<Milestone> milestoneList, TreeSet<Tag> tagList) {
         this.deadline = deadline;
         this.moduleCode = moduleCode;
         this.title = title;
@@ -44,15 +48,6 @@ public class Task {
         this.isCompleted = isCompleted;
         this.milestoneList.addAll(milestoneList);
         this.tagList.addAll(tagList);
-    }
-
-    public Task(String moduleCode, String title, String description,
-                PriorityLevel priorityLevel, int expectedNumOfHours) {
-        this.moduleCode = moduleCode;
-        this.title = title;
-        this.description = description;
-        this.priorityLevel = priorityLevel;
-        this.expectedNumOfHours = expectedNumOfHours;
     }
 
     public Task(Task other) {
@@ -72,7 +67,7 @@ public class Task {
         return deadline;
     }
 
-    public String getModuleCode() {
+    public ModuleCode getModuleCode() {
         return moduleCode;
     }
 
@@ -131,9 +126,9 @@ public class Task {
         }
         return otherTask != null
                 && otherTask.getDeadline().equals(getDeadline())
-                && otherTask.getTitle().equals(getTitle());
+                && otherTask.getTitle().equals(getTitle())
+                && otherTask.getModuleCode().equals(getModuleCode());
     }
-
     //@@author ChanChunCheong
     /**
      * Add tag to a task
@@ -166,15 +161,17 @@ public class Task {
     public Task addMilestone(Milestone milestone) {
         Task taskWithMilestones = new Task(this);
         taskWithMilestones.milestoneList.add(milestone);
+        Collections.sort(taskWithMilestones.milestoneList);
         return taskWithMilestones;
     }
 
     /**
      * @return list of milestones for the task.
      */
-    public Set<Milestone> getMilestoneList() {
-        return Collections.unmodifiableSet(milestoneList);
+    public List<Milestone> getMilestoneList() {
+        return Collections.unmodifiableList(milestoneList);
     }
+
     /**
      * Returns true if both tasks have the same data fields.
      * This defines a stronger notion of equality between two tasks.
@@ -196,9 +193,8 @@ public class Task {
                 && otherTask.getPriorityLevel().equals(getPriorityLevel())
                 && otherTask.isCompleted() == isCompleted()
                 && otherTask.getExpectedNumOfHours() == getExpectedNumOfHours()
-                && otherTask.getCompletedNumOfHours() == getCompletedNumOfHours();
-                //&& otherTask.getMilestoneList().equals(getMilestoneList())
-                //&& otherTask.getTags().equals(getTags());
+                && otherTask.getCompletedNumOfHours() == getCompletedNumOfHours()
+                && otherTask.getModuleCode().equals(getModuleCode());
     }
 
     @Override

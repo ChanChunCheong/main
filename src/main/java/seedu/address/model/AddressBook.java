@@ -64,11 +64,20 @@ public class AddressBook implements ReadOnlyTaskBook {
     //// task-level operations
 
     /**
-     * Returns true if a task with the same identity as {@code task} exists in the address book.
+     * Returns true if there is a task in task book that has exactly the same fields as input task
      */
     public boolean hasTask(Task task) {
         requireNonNull(task);
         return tasks.contains(task);
+    }
+
+    //@@author emobeany
+    /**
+     * Returns true if a task with the same identity as {@code task} exists in the address book.
+     */
+    public boolean isTheExactSameTaskAs(Task task) {
+        requireNonNull(task);
+        return tasks.containsExactCopyOf(task);
     }
 
     /**
@@ -79,6 +88,7 @@ public class AddressBook implements ReadOnlyTaskBook {
         tasks.add(t);
     }
 
+    //@@suthor emobeany
     /**
      * Adds a tag to a tag in the address book.
      * The tag must not already exist in the task.
@@ -92,10 +102,10 @@ public class AddressBook implements ReadOnlyTaskBook {
      * {@code target} must exist in the address book.
      * The task identity of {@code editedPerson} must not be the same as another existing task in the address book.
      */
-    public void updateTask(Task target, Task editedPerson) {
-        requireNonNull(editedPerson);
+    public void updateTask(Task target, Task editedTask) {
+        requireNonNull(editedTask);
 
-        tasks.setTask(target, editedPerson);
+        tasks.setTask(target, editedTask);
     }
 
     /**
@@ -124,14 +134,20 @@ public class AddressBook implements ReadOnlyTaskBook {
         tasks.remove(key);
     }
 
-    //@@author
+    //@@author emobeany
     /**
      * Selects the date for Task Book.
      * Update the list.
      */
     public void selectDeadline(Deadline deadline) {
-        //TODO: @emobeany handle cases where year or month is not specified
         currentDate = deadline;
+    }
+
+    public String getYear() {
+        if (currentDate == null) {
+            currentDate = PLACEHOLDER_DEADLINE;
+        }
+        return currentDate.getYear();
     }
 
     //@@ ChanChunCheong
@@ -146,10 +162,6 @@ public class AddressBook implements ReadOnlyTaskBook {
         UniqueTaskList updateList = new UniqueTaskList();
         updateList.setTasks(copyList);
         tasks.setTasks(updateList);
-    }
-
-    public boolean validDeadline(Deadline deadline) {
-        return Deadline.isValidDeadline(deadline.toString());
     }
 
     public Deadline getDeadline() {

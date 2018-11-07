@@ -30,18 +30,39 @@ public class MilestoneDescription {
         this.milestoneDescription = milestoneDescription;
     }
 
+
     /**
      * Checks whether milestone description entered by the user is valid
      * @param milestoneDescription
      * @return true if valid
      */
+    /*
     public static boolean isValidMilestoneDescription(String milestoneDescription) {
         return true;
         //milestoneDescription.matches(MILESTONEDESCRIPTION_VALIDATION_REGEX);
     }
+    */
 
     public String getMilestoneDescription() {
         return this.milestoneDescription;
+    }
+
+    /**
+     * Pads milestone description to fill up 40 characters for neater layout in the UI
+     * @param milestoneDescription
+     * @return padded milestoneDescription
+     */
+    public static String padMilestoneDescription(String milestoneDescription) {
+        int milestoneDescriptionLength = milestoneDescription.length();
+        int toPad = 41 - milestoneDescriptionLength;
+        return String.format("%1$-" + toPad + "s", milestoneDescription);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MilestoneDescription // instanceof handles nulls
+                && milestoneDescription.equals(((MilestoneDescription) other).milestoneDescription));
     }
 
     @Override

@@ -61,9 +61,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean hasTask(Task person) {
-        requireNonNull(person);
-        return versionedTaskBook.hasTask(person);
+    public boolean hasTask(Task task) {
+        requireNonNull(task);
+        return versionedTaskBook.hasTask(task);
+    }
+
+    //@@author emobeany
+    @Override
+    public boolean isTheExactSameTaskAs(Task otherTask) {
+        requireNonNull(otherTask);
+        return versionedTaskBook.isTheExactSameTaskAs(otherTask);
     }
 
     //@@author ChanChunCheong
@@ -89,7 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addTask(Task task) {
         versionedTaskBook.addTask(task);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        updateFilteredTaskList(predicateShowTasksWithSameDate(task.getDeadline()));
         indicateTaskBookChanged();
     }
 
@@ -109,7 +116,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
-    //@@author
+    //@@author emobeany
     @Override
     public void updateTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
@@ -117,7 +124,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
-    //@@author emobeany
     @Override
     public void selectDeadline(Deadline deadline) {
         versionedTaskBook.selectDeadline(deadline);
@@ -130,13 +136,14 @@ public class ModelManager extends ComponentManager implements Model {
         return task -> task.getDeadline().equals(deadline);
     }
 
+    @Override
     public Deadline getDeadline() {
         return versionedTaskBook.getDeadline();
     }
 
     @Override
-    public boolean validDeadline(Deadline deadline) {
-        return versionedTaskBook.validDeadline(deadline);
+    public String getYear() {
+        return versionedTaskBook.getYear();
     }
 
     //@@author

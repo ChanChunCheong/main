@@ -14,6 +14,7 @@ import seedu.address.logic.parser.AddMilestoneCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.task.Milestone;
+import seedu.address.model.task.Rank;
 import seedu.address.model.task.Task;
 
 //@@author JeremyInElysium
@@ -24,7 +25,8 @@ public class AddMilestoneCommand extends Command implements CommandParser {
     public static final String COMMAND_WORD = "add_milestone";
     public static final String MESSAGE_SUCCESS = "New milestone added: %1$s";
     public static final String MESSAGE_TASK_NOT_FOUND = "This task does not exist in the task book";
-    public static final String MESSAGE_DUPLICATE_RANK = "Invalid rank entered.";
+    public static final String MESSAGE_DUPLICATE_RANK = "Duplicate rank entered.";
+    public static final String MESSAGE_DUPLICATE_MILESTONEDESCRIPTION = "Duplicate milestone entered.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds milestone(s) to selected task. "
             + "Parameters: "
             + PREFIX_INDEX + "INDEX "
@@ -63,11 +65,21 @@ public class AddMilestoneCommand extends Command implements CommandParser {
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_TASK_NOT_FOUND);
+        } else if (!Rank.isValidRank(toAdd.getRank().toString())) {
+            throw new CommandException(Rank.MESSAGE_RANK_CONSTRAINTS);
         }
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
 
-        //TODO: ensure rank of milestone that is being added does not collide with existing milestones' ranks
+        for (Milestone temp: taskToEdit.getMilestoneList()) {
+            if (temp.getRank().equals(toAdd.getRank())) {
+                throw new CommandException(MESSAGE_DUPLICATE_RANK);
+            }
+            if (temp.getMilestoneDescription().equals(toAdd.getMilestoneDescription())) {
+                throw new CommandException(MESSAGE_DUPLICATE_MILESTONEDESCRIPTION);
+            }
+        }
+
         /*
         if(taskToEdit.milestoneSet.size() <= rank) {
             throw new CommandException(MESSAGE_DUPLICATE_RANK);
