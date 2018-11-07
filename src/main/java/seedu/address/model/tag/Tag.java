@@ -1,5 +1,7 @@
 package seedu.address.model.tag;
 
+import java.util.Comparator;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -7,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Tag in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
-public class Tag {
+public class Tag implements Comparable<Tag> {
 
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
@@ -25,11 +27,22 @@ public class Tag {
         this.tagName = tagName;
     }
 
+
+    public Tag() {
+        this.tagName = null;
+    }
+
+
     /**
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
         return test.matches(TAG_VALIDATION_REGEX);
+    }
+
+    @Override
+    public int compareTo(Tag other) {
+        return this.tagName.compareTo(other.tagName);
     }
 
     @Override
@@ -50,5 +63,4 @@ public class Tag {
     public String toString() {
         return '[' + tagName + ']';
     }
-
 }

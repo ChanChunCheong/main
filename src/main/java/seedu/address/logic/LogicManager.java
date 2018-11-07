@@ -59,7 +59,7 @@ public class LogicManager extends ComponentManager implements Logic {
                 new UndoCommand(),
                 new RedoCommand(),
                 new AddMilestoneCommand(),
-                new AddTagCommand()
+                new AddTagCommand(),
                 new EditTaskCommand()
         );
     }

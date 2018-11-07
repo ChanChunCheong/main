@@ -103,7 +103,9 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author ChanChunCheong
     @Override
     public void addTag(Task task, Tag tag) {
+        System.out.println("Yea 1");
         versionedTaskBook.addTag(task, tag);
+        System.out.println("Yea finished VTB");
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         indicateTaskBookChanged();
     }

@@ -1,12 +1,8 @@
 package seedu.address.model.task;
 
 import seedu.address.model.tag.Tag;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.SortedSet;
-import java.util.TreeSet;
+
+import java.util.*;
 
 /**
  * Represents a Task in the address book.
@@ -25,6 +21,7 @@ public class Task {
     private int completedNumOfHours;
     private final List<Milestone> milestoneList = new ArrayList<Milestone>();
     private final SortedSet<Tag> tagList = new TreeSet<Tag>();
+
     public Task(Deadline deadline, ModuleCode moduleCode, String title, String description, PriorityLevel priorityLevel,
                 int expectedNumOfHours) {
         this.deadline = deadline;
@@ -37,7 +34,7 @@ public class Task {
 
     public Task(Deadline deadline, ModuleCode moduleCode, String title, String description, PriorityLevel priorityLevel,
                 int expectedNumOfHours, int completedNumOfHours, boolean isCompleted,
-                List<Milestone> milestoneList, TreeSet<Tag> tagList) {
+                List<Milestone> milestoneList, SortedSet<Tag> tagList) {
         this.deadline = deadline;
         this.moduleCode = moduleCode;
         this.title = title;
@@ -137,7 +134,9 @@ public class Task {
      */
     public Task addTag(Tag tag) {
         Task deferredTask = new Task(this);
+        System.out.println("Yea 3");
         deferredTask.tagList.add(tag);
+        System.out.println("Yea 3");
         return deferredTask;
     }
 

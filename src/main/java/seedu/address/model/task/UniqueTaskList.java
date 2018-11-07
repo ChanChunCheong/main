@@ -67,7 +67,9 @@ public class UniqueTaskList implements Iterable<Task> {
         if (index == -1) {
             throw new TaskNotFoundException();
         }
+        System.out.println("Yea 2");
         Task deferredTask = target.addTag(tag);
+        System.out.println("Yea 4");
         internalList.set(index, deferredTask);
     }
 

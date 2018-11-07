@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -15,7 +14,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddMilestoneCommandParser;
+import seedu.address.logic.parser.AddTagCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
@@ -32,7 +31,7 @@ public class AddTagCommand extends Command implements CommandParser {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tag(s) to selected task. "
             + "Parameters: "
             + PREFIX_INDEX + "INDEX "
-            + PREFIX_TAG + "TAG"
+            + PREFIX_TAG + "TAG\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INDEX + "1 "
             + PREFIX_TAG + "Sport";
@@ -68,13 +67,14 @@ public class AddTagCommand extends Command implements CommandParser {
 
         Task taskToAdd = lastShownList.get(index.getZeroBased());
         model.addTag(taskToAdd, tag);
+        System.out.println("Yea");
         model.commitTaskBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToAdd.getTitle(), tag.toString()));
     }
 
     @Override
     public Command parse(String arguments) throws ParseException {
-        return new AddMilestoneCommandParser().parse(arguments);
+        return new AddTagCommandParser().parse(arguments);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAG/;./,;E_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
         }
 
         Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).orElse(""));
