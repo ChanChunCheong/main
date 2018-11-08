@@ -63,6 +63,9 @@ public interface Model {
      */
     void removeTag(Task task, Tag tag);
 
+    /** Selects the input tag as Tag.*/
+    void selectTag(Tag tag);
+
     //@@author emobeany
     /** Selects the input date as deadline.*/
     void selectDeadline(Deadline deadline);

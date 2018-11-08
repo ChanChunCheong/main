@@ -1,15 +1,13 @@
 package seedu.address.model.task;
 
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.exceptions.TagNotFoundException;
-import seedu.address.model.task.exceptions.TaskNotFoundException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Task in the address book.
@@ -145,11 +143,13 @@ public class Task {
         return deferredTask;
     }
 
+    /**
+     * Removes a tag to a task
+     * @param tag
+     * @return the new Task
+     */
     public Task removeTag(Tag tag) {
         Task deferredTask = new Task(this);
-        if (!deferredTask.tagList.remove(tag)) {
-            throw new TagNotFoundException();
-        }
         deferredTask.tagList.remove(tag);
         return deferredTask;
     }

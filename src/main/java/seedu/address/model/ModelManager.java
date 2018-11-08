@@ -121,6 +121,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         indicateTaskBookChanged();
     }
+
+    @Override
+    public void selectTag(Tag tag) {
+        updateFilteredTaskList(predicateShowTasksWithSameTag(tag));
+        indicateTaskBookChanged();
+    }
     //@@author
 
     //@@author emobeany
@@ -142,6 +148,13 @@ public class ModelManager extends ComponentManager implements Model {
     private Predicate<Task> predicateShowTasksWithSameDate(Deadline deadline) {
         return task -> task.getDeadline().equals(deadline);
     }
+
+    //@author ChanChunCheong
+    /**{@code Predicate} that returns true when the date is equal*/
+    private Predicate<Task> predicateShowTasksWithSameTag(Tag tag) {
+        return task -> task.getTags().contains(tag);
+    }
+    //@author
 
     @Override
     public Deadline getDeadline() {

@@ -207,7 +207,6 @@ public class XmlAdaptedTask {
                 && Objects.equals(title, otherTask.title)
                 && Objects.equals(description, otherTask.description)
                 && Objects.equals(priorityLevel, otherTask.priorityLevel);
-                //&& Objects.equals(tagged, otherTask.tagged);
 
     }
 }
