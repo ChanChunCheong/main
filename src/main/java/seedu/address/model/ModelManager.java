@@ -75,8 +75,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author ChanChunCheong
     @Override
-    public void deferTaskDeadline(Task target, Deadline deadline) {
-        versionedTaskBook.deferDeadline(target, deadline);
+    public void deferTaskDeadline(Task target, int deferredDays) {
+        versionedTaskBook.deferDeadline(target, deferredDays);
         indicateTaskBookChanged();
     }
 

@@ -41,20 +41,16 @@ public class DeferDeadlineCommandParser implements Parser<DeferDeadlineCommand> 
      */
     public DeferDeadlineCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_DAY, PREFIX_MONTH,
-                PREFIX_YEAR);
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR)
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_DAY);
+        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_DAY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeferDeadlineCommand.MESSAGE_USAGE));
         }
 
         Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).orElse(""));
         String day = argMultimap.getValue(PREFIX_DAY).orElse("");
-        String month = argMultimap.getValue(PREFIX_MONTH).orElse("");
-        String year = argMultimap.getValue(PREFIX_YEAR).orElse("");
-        Deadline deadline = new Deadline(day, month, year);
-
-        return new DeferDeadlineCommand(index, deadline);
+        int deferredDay = ParserUtil.parseDefferedDays(day);
+        return new DeferDeadlineCommand(index, deferredDay);
     }
 
     /**

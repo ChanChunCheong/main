@@ -31,7 +31,7 @@ public interface Model {
      */
     boolean isTheExactSameTaskAs(Task task);
 
-    void deferTaskDeadline(Task task, Deadline deadline);
+    void deferTaskDeadline(Task task, int deferredDay);
     /**
      * Deletes the given task.
      * The task must exist in the task book.

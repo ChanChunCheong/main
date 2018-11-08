@@ -160,9 +160,10 @@ public class Task {
      * @param deadline
      * @return the new Task
      */
-    public Task deferred(Deadline deadline) {
+    public Task deferred(int deferredDays) {
         Task deferredTask = new Task(this);
-        deferredTask.deadline = deadline;
+        Deadline deferreDeadline = deferredTask.deadline.deferDeadline(deferredDays);
+        deferredTask.deadline = deferreDeadline;
         return deferredTask;
     }
 
