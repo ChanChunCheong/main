@@ -73,13 +73,6 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedTaskBook.isTheExactSameTaskAs(otherTask);
     }
 
-    //@@author ChanChunCheong
-    @Override
-    public void deferTaskDeadline(Task target, int deferredDays) {
-        versionedTaskBook.deferDeadline(target, deferredDays);
-        indicateTaskBookChanged();
-    }
-
     //@@author chelseyong
     @Override
     public void deleteTask(Task target) {

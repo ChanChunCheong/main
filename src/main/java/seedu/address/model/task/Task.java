@@ -154,7 +154,6 @@ public class Task {
         return deferredTask;
     }
 
-    //@@author ChanChunCheong
     /**
      * Defers the task to a later
      * @param deadline
@@ -166,7 +165,7 @@ public class Task {
         deferredTask.deadline = deferredDeadline;
         return deferredTask;
     }
-
+    //@@author
 
     //@@JeremyInElysium
     /**

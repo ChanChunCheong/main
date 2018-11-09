@@ -32,6 +32,8 @@ public class DeferDeadlineCommand extends Command implements CommandParser {
             + PREFIX_DAY + "04 ";
 
     public static final String MESSAGE_NONEXISTENT_TASK = "This task does not exist in the task book";
+    public static final String MESSAGE_DUPLICATE_TASK = "Deadline for task can't be deferred as "
+            + "a same task already exists in the Task book";
     public static final String MESSAGE_SUCCESS = "Date deferred for task: %1$s";
 
     private final Index taskIndex;
@@ -65,7 +67,12 @@ public class DeferDeadlineCommand extends Command implements CommandParser {
         }
 
         Task taskToDefer = lastShownList.get(taskIndex.getZeroBased()); // get the task from the filteredtasklist;
-        model.deferTaskDeadline(taskToDefer, deferredDays);
+        Task deferredTask = new Task(taskToDefer);
+        deferredTask = deferredTask.deferred(deferredDays);
+        if (model.hasTask(deferredTask)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
+        model.updateTask(taskToDefer, deferredTask);
         model.commitTaskBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToDefer));
     }
