@@ -80,16 +80,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if (index == -1) {
             throw new TaskNotFoundException();
         }
-        /*
-        Set<Tag> newTags = new HashSet<>(target.getTags());
-        if (!newTags.remove(tag)) {
-            return;
-        }
 
-        Task newTask =
-                new (newTask.get(), newTask.getPhone(), newTask.getEmail(), newTask.getAddress(), newTaskTags);
-        updateTask(Task, newTask);
-        */
         Task targetedTask = target.removeTag(tag);
         internalList.set(index, targetedTask);
     }

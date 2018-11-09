@@ -63,11 +63,6 @@ public class DeferDeadlineCommand extends Command implements CommandParser {
         if (taskIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_NONEXISTENT_TASK);
         }
-        /*
-        else if (!Deadline.isValidDeadline(deadline.toString())) {
-            throw new CommandException(MESSAGE_INVALID_DEADLINE);
-        }
-        */
 
         Task taskToDefer = lastShownList.get(taskIndex.getZeroBased()); // get the task from the filteredtasklist;
         model.deferTaskDeadline(taskToDefer, deferredDays);
