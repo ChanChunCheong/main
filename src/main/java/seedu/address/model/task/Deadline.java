@@ -154,13 +154,17 @@ public class Deadline {
         }
 
         newDay = day + deferredDays;
-        System.out.println(newDay);
+        System.out.println(String.format(("newDay is %1$d"), newDay));
         updatedDay = newDay % baseDays;
-        System.out.println(updatedDay);
-        // if daystoAdd == 0 then no change to the original day.
-        if (!(updatedDay == 0)) {
+        System.out.println(String.format(("updatedDay is %1$d"), updatedDay));
+        System.out.println(String.format(("baseDay is %1$d"), baseDays));
+        // if daystoAdd == 0 then day = end of the month.
+        if (updatedDay == 0) {
+            day = baseDays;
+        } else {
             day = updatedDay;
         }
+
         //Count the number of months added
         while (newDay > baseDays) {
             newDay = day - baseDays;

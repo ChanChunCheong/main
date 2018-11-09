@@ -162,8 +162,8 @@ public class Task {
      */
     public Task deferred(int deferredDays) {
         Task deferredTask = new Task(this);
-        Deadline deferreDeadline = deferredTask.deadline.deferDeadline(deferredDays);
-        deferredTask.deadline = deferreDeadline;
+        Deadline deferredDeadline = deferredTask.deadline.deferDeadline(deferredDays);
+        deferredTask.deadline = deferredDeadline;
         return deferredTask;
     }
 
