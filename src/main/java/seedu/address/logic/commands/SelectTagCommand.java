@@ -55,6 +55,12 @@ public class SelectTagCommand extends Command implements CommandParser {
                 && selectedTag.equals(((SelectDeadlineCommand) other).selectedTag));
     }
     */
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SelectTagCommand // instanceof handles nulls
+                && selectedTag.equals(((SelectTagCommand) other).selectedTag));
+    }
 
     @Override
     public Command parse(String arguments) throws ParseException {

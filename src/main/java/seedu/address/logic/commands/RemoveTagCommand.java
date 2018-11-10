@@ -67,12 +67,21 @@ public class RemoveTagCommand extends Command implements CommandParser {
         Task taskToRemove = lastShownList.get(index.getZeroBased());
         Set<Tag> newTags = new HashSet<>(taskToRemove.getTags());
         if (!(newTags.contains(tag))) {
+            System.out.println("yo");
             throw new CommandException(MESSAGE_TAG_NOT_FOUND);
         }
 
         model.removeTag(taskToRemove, tag);
         model.commitTaskBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToRemove.getTitle(), tag.toString()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RemoveTagCommand // instanceof handles nulls
+                && index.equals(((RemoveTagCommand) other).index)
+                && tag.equals(((RemoveTagCommand) other).tag));
     }
 
     @Override

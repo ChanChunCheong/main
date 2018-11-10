@@ -24,7 +24,8 @@ public class RemoveTagCommandParser implements Parser<RemoveTagCommand> {
      * and returns an RemoveTagCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public RemoveTagCommand parse(String args) throws ParseException { requireNonNull(args);
+    public RemoveTagCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_TAG);
 
@@ -38,7 +39,7 @@ public class RemoveTagCommandParser implements Parser<RemoveTagCommand> {
         if (!isValidTagName(tag)) {
             throw new ParseException(MESSAGE_TAG_CONSTRAINTS);
         }
-        Tag tagName = new Tag(tag);
+        Tag tagName = new Tag(tag.toLowerCase());
 
         return new RemoveTagCommand(index, tagName);
     }

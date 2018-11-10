@@ -17,8 +17,7 @@ import seedu.address.model.task.PriorityLevel;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
-    public static final String MESSAGE_INVALID_DEFERRED_DAYS = "Deferred Days need to be positive integer and "
-        + "less than 32";
+    public static final String MESSAGE_INVALID_DEFERRED_DAYS = "Deferred Days is a not-zero unsigned integer.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_HOURS = "Hour(s) must be an integer!";
     public static final String MESSAGE_EMPTY_DESCRIPTION = "Description is empty!";
@@ -55,12 +54,10 @@ public class ParserUtil {
         String trimmedIndex = deferredDays.trim();
         if (trimmedIndex.isEmpty()) {
             throw new ParseException(MESSAGE_EMPTY_DEFERRED_DAYS);
-        }
-        int numOfDays = Integer.parseInt(deferredDays);
-        if (numOfDays < 1 || numOfDays > 31) {
+        } else if (!isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_DEFERRED_DAYS);
         }
-        return numOfDays;
+        return Integer.parseInt(deferredDays);
     }
     //@@author
 

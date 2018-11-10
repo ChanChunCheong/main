@@ -36,7 +36,7 @@ public class SelectTagCommandParser implements Parser<SelectTagCommand> {
         if (!isValidTagName(tag)) {
             throw new ParseException(MESSAGE_TAG_CONSTRAINTS);
         }
-        Tag tagName = new Tag(tag);
+        Tag tagName = new Tag(tag.toLowerCase());
 
 
         return new SelectTagCommand(tagName);

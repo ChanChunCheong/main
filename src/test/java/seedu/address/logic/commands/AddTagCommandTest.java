@@ -1,33 +1,115 @@
 package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.address.testutil.TaskBuilder.DEFAULT_DEADLINE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
+import static seedu.address.testutil.TypicalTasks.getTypicalTaskBook;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
-import java.util.logging.Logger;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Deadline;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
 public class AddTagCommandTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private Model model = new ModelManager(getTypicalTaskBook(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
+    @Test
+    public void constructor_nullDeadline_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        new DeferDeadlineCommand(null, 0);
+    }
+
+
+    @Test
+    public void execute_validIndexUnFilteredList_success() throws Exception {
+        Tag tag = new Tag("module");
+        Task task = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task taskTagged = new TaskBuilder(task).withTags("english", "module").build();
+        AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_TASK, tag);
+
+        String expectedMessage = String.format(addTagCommand.MESSAGE_SUCCESS, taskTagged.getTitle(), tag.toString());
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.updateTask(task , taskTagged);
+        expectedModel.commitTaskBook();
+
+        assertCommandSuccess(addTagCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+
+    @Test
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+        Tag tag = new Tag("friends");
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
+        AddTagCommand addTagCommand = new AddTagCommand(outOfBoundIndex, tag);
+
+        assertCommandFailure(addTagCommand, model, commandHistory,
+                AddTagCommand.MESSAGE_TASK_NOT_FOUND);
+    }
+
+
+    @Test
+    public void execute_validIndexFilteredList_success() {
+        showTaskAtIndex(model, INDEX_FIRST_TASK);
+
+        Tag tag = new Tag("module");
+        Task task = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task taskTagged = new TaskBuilder(task).withTags("english", "module").build();
+        AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_TASK, tag);
+
+        String expectedMessage = String.format(addTagCommand.MESSAGE_SUCCESS, taskTagged.getTitle(), tag.toString());
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.updateTask(task , taskTagged);
+        expectedModel.commitTaskBook();
+
+        assertCommandSuccess(addTagCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+    @Test
+    public void execute_invalidIndexFilteredList_throwsCommandException() {
+        showTaskAtIndex(model, INDEX_FIRST_TASK);
+
+        Tag tag = new Tag("friends");
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
+        AddTagCommand addTagCommand = new AddTagCommand(outOfBoundIndex, tag);
+
+        assertCommandFailure(addTagCommand, model, commandHistory,
+                AddTagCommand.MESSAGE_TASK_NOT_FOUND);
+    }
+
+    @Test
+    public void execute_setsWillPreventDuplicateTags_success() {
+        Tag tag = new Tag("english");
+        Task task = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_TASK, tag);
+
+        String expectedMessage = String.format(addTagCommand.MESSAGE_SUCCESS, task.getTitle(), tag.toString());
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.commitTaskBook();
+
+        assertCommandSuccess(addTagCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
     /*
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
     private static final Logger logger = LogsCenter.getLogger(AddTagCommandTest.class);
@@ -217,11 +299,6 @@ public class AddTagCommandTest {
 
         @Override
         public void selectTag(Tag tag) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deferTaskDeadline(Task task, int deferredDay) {
             throw new AssertionError("This method should not be called.");
         }
 
