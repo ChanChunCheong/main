@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.address.testutil.TaskBuilder.DEFAULT_DEADLINE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskBook;
 
 import java.util.ArrayList;
@@ -110,168 +113,29 @@ public class AddTagCommandTest {
 
         assertCommandSuccess(addTagCommand, model, commandHistory, expectedMessage, expectedModel);
     }
-    /*
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
-    private static final Logger logger = LogsCenter.getLogger(AddTagCommandTest.class);
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    private CommandHistory commandHistory = new CommandHistory();
-
-    @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        new AddTagCommand(null);
-    }
-
-    @Test
-    public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        Task validTask = new TaskBuilder().build();
-
-        CommandResult commandResult = new AddTagCommand(validTask).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(AddTagCommand.MESSAGE_SUCCESS, validTask), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    }
-
-    @Test
-    public void execute_duplicateTask_throwsCommandException() throws Exception {
-        Task validTask = new TaskBuilder().build();
-        AddTagCommand addCommand = new AddTagCommand(validTask);
-        ModelStub modelStub = new ModelStubWithTask(validTask);
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(AddTagCommand.MESSAGE_DUPLICATE_TASK);
-        addCommand.execute(modelStub, commandHistory);
-    }
-
-    @Test
-    public void execute_taskWithDifferentDeadline_addSuccessful() throws Exception {
-        Task typicalTask = new TaskBuilder().build();
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        modelStub.addTask(typicalTask);
-
-        Task secondTask = new TaskBuilder().withDeadline("5/5/2018").build();
-        AddTagCommand addCommand = new AddTagCommand(secondTask);
-        modelStub.selectDeadline(new Deadline("5/5/2018"));
-        CommandResult commandResult = new AddTaskCommand(secondTask).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(AddTagCommand.MESSAGE_SUCCESS, secondTask), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(typicalTask, secondTask), modelStub.tasksAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    }
-
-    @Test
-    public void execute_taskWithDifferentTitle_addSuccessful() throws Exception {
-        Task typicalTask = new TaskBuilder().build();
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        modelStub.addTask(typicalTask);
-
-        Task secondTask = new TaskBuilder().withTitle("Different Title").build();
-        AddTagCommand addCommand = new AddTagCommand(secondTask);
-        CommandResult commandResult = new AddTagCommand(secondTask).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(AddTagCommand.MESSAGE_SUCCESS, secondTask), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(typicalTask, secondTask), modelStub.tasksAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    }
-
-    @Test
-    public void execute_taskWithDifferentModuleCode_addSuccessful() throws Exception {
-        Task typicalTask = new TaskBuilder().build();
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        modelStub.addTask(typicalTask);
-
-        Task secondTask = new TaskBuilder().withModuleCode("CG2271").build();
-        AddTagCommand addCommand = new AddTagCommand(secondTask);
-        CommandResult commandResult = new AddTagCommand(secondTask).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(AddTagCommand.MESSAGE_SUCCESS, secondTask), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(typicalTask, secondTask), modelStub.tasksAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    }
-
-    @Test
-    public void execute_taskWithDifferentDescription_throwsCommandException() throws Exception {
-        Task typicalTask = new TaskBuilder().build();
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        modelStub.addTask(typicalTask);
-
-        Task secondTask = new TaskBuilder().withDescription("Different description").build();
-        AddTagCommand addCommand = new AddTagCommand(secondTask);
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(AddTagCommand.MESSAGE_DUPLICATE_TASK);
-        addCommand.execute(modelStub, commandHistory);
-    }
-
-    @Test
-    public void execute_taskWithDifferentPriorityLevel_throwsCommandException() throws Exception {
-        Task typicalTask = new TaskBuilder().build();
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        modelStub.addTask(typicalTask);
-
-        Task secondTask = new TaskBuilder().withPriority("low").build();
-        AddTagCommand addCommand = new AddTagCommand(secondTask);
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(AddTagCommand.MESSAGE_DUPLICATE_TASK);
-        addCommand.execute(modelStub, commandHistory);
-    }
-
-    @Test
-    public void execute_taskWithDifferentHours_throwsCommandException() throws Exception {
-        Task typicalTask = new TaskBuilder().build();
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        modelStub.addTask(typicalTask);
-
-        Task secondTask = new TaskBuilder().withExpectedNumOfHours(4).build();
-        AddTagCommand addCommand = new AddTagCommand(secondTask);
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(AddTagCommand.MESSAGE_DUPLICATE_TASK);
-        addCommand.execute(modelStub, commandHistory);
-    }
-
-    @Test
-    public void execute_taskWithZeroHourCompletion_throwsCommandException() throws Exception {
-        Task validTask = new TaskBuilder().withExpectedNumOfHours(0).build();
-        AddTagCommand addCommand = new AddTagCommand(validTask);
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(Messages.MESSAGE_ZERO_HOURS_COMPLETION);
-        addCommand.execute(modelStub, commandHistory);
-    }
 
     @Test
     public void equals() {
-        Task jan1st = new TaskBuilder().withDeadline("1/1/2018").build();
-        Task nov1st = new TaskBuilder().withDeadline("1/11/2018").build();
-        AddTaskCommand addJan1stCommand = new AddTaskCommand(jan1st);
-        AddTaskCommand addNov1stCommand = new AddTaskCommand(nov1st);
+        Tag tag = new Tag("friend");
+        AddTagCommand addTagToFirstTaskCommand = new AddTagCommand(INDEX_FIRST_TASK, tag);
+        AddTagCommand addTagToSecondTaskCommand = new AddTagCommand(INDEX_SECOND_TASK, tag);
 
         // same object -> returns true
-        assertTrue(addJan1stCommand.equals(addJan1stCommand));
+        assertTrue(addTagToFirstTaskCommand.equals(addTagToFirstTaskCommand));
 
         // same values -> returns true
-        AddTaskCommand addJan1stCommandCopy = new AddTaskCommand(jan1st);
-        assertTrue(addJan1stCommand.equals(addJan1stCommandCopy));
+        AddTagCommand addTagToFirstTaskCommandCopy = new AddTagCommand(INDEX_FIRST_TASK, tag);
+        assertTrue(addTagToFirstTaskCommand.equals(addTagToFirstTaskCommandCopy));
 
         // different types -> returns false
-        assertFalse(addJan1stCommand.equals(1));
+        assertFalse(addTagToFirstTaskCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addJan1stCommand.equals(null));
+        assertFalse(addTagToFirstTaskCommand.equals(null));
 
         // different task -> returns false
-        assertFalse(addJan1stCommand.equals(addNov1stCommand));
+        assertFalse(addTagToFirstTaskCommand.equals(addTagToSecondTaskCommand));
     }
-
-    /*
     /**
      * A default model stub that have all of the methods failing.
      */

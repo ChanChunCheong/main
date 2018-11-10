@@ -1,9 +1,12 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskBook;
 
 import org.junit.Rule;
@@ -96,5 +99,28 @@ public class RemoveTagCommandTest {
 
         assertCommandFailure(removeTagCommand, model, commandHistory,
                 removeTagCommand.MESSAGE_TAG_NOT_FOUND);
+    }
+
+    @Test
+    public void equals() {
+        Tag tag = new Tag("friend");
+        RemoveTagCommand removeTagToFirstTaskCommand = new RemoveTagCommand(INDEX_FIRST_TASK, tag);
+        RemoveTagCommand removeTagToSecondTaskCommand = new RemoveTagCommand(INDEX_SECOND_TASK, tag);
+
+        // same object -> returns true
+        assertTrue(removeTagToFirstTaskCommand.equals(removeTagToFirstTaskCommand));
+
+        // same values -> returns true
+        RemoveTagCommand removeTagToFirstTaskCommandCopy = new RemoveTagCommand(INDEX_FIRST_TASK, tag);
+        assertTrue(removeTagToFirstTaskCommand.equals(removeTagToFirstTaskCommandCopy));
+
+        // different types -> returns false
+        assertFalse(removeTagToFirstTaskCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(removeTagToFirstTaskCommand.equals(null));
+
+        // different task -> returns false
+        assertFalse(removeTagToFirstTaskCommand.equals(removeTagToSecondTaskCommand));
     }
 }

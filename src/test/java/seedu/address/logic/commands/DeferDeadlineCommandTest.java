@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
@@ -16,6 +17,7 @@ import static seedu.address.testutil.TypicalTasks.getTypicalTaskBook;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -144,6 +146,31 @@ public class DeferDeadlineCommandTest {
         expectedModel.commitTaskBook();
 
         assertCommandSuccess(deferDeadlineCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        int DeferredDays = 1;
+        DeferDeadlineCommand deferTaskwithFirstIndexCommand = new DeferDeadlineCommand(INDEX_FIRST_TASK, DeferredDays);
+        DeferDeadlineCommand deferTaskwithSecondIndexCommand = new DeferDeadlineCommand(INDEX_SECOND_TASK,
+                DeferredDays);
+
+        // same object -> returns true
+        Assert.assertTrue(deferTaskwithFirstIndexCommand.equals(deferTaskwithFirstIndexCommand));
+
+        // same values -> returns true
+        DeferDeadlineCommand deferTaskwithFirstIndexCommandCopy = new DeferDeadlineCommand(INDEX_FIRST_TASK,
+                DeferredDays);
+        Assert.assertTrue(deferTaskwithFirstIndexCommand.equals(deferTaskwithFirstIndexCommandCopy));
+
+        // different types -> returns false
+        assertFalse(deferTaskwithFirstIndexCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(deferTaskwithFirstIndexCommand.equals(null));
+
+        // different task -> returns false
+        assertFalse(deferTaskwithFirstIndexCommand.equals(deferTaskwithSecondIndexCommand));
     }
     /**
      * A default model stub that have all of the methods failing.
@@ -288,4 +315,5 @@ public class DeferDeadlineCommandTest {
             return new AddressBook();
         }
     }
+
 }
