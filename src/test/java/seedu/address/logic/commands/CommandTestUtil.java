@@ -7,9 +7,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MILESTONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RANK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.ArrayList;
@@ -50,6 +52,10 @@ public class CommandTestUtil {
     public static final String VALID_2_HOURS = "2";
     public static final String TAG_NON_ALPHA = "+";
     public static final Index VALID_INDEX = Index.fromOneBased(1);
+    public static final String VALID_INDEX_1 = "1";
+    public static final String VALID_INDEX_2 = "2";
+    public static final String VALID_MILESTONE_DESCRIPTION_1 = "Dummy milestone";
+    public static final String VALID_RANK_1 = "1";
 
     public static final String DEADLINE_DESC_1ST_JAN = " " + PREFIX_DEADLINE + VALID_DEADLINE_1ST_JAN;
     public static final String DEADLINE_DESC_31ST_MARCH = " " + PREFIX_DEADLINE + VALID_DEADLINE_31ST_MARCH;
@@ -70,6 +76,10 @@ public class CommandTestUtil {
     public static final String PRIORITY_LEVEL_DESC_MEDIUM = " " + PREFIX_PRIORITY + VALID_PRIORITY_LEVEL_MEDIUM;
     public static final String HOURS_DESC_1 = " " + PREFIX_HOURS + VALID_1_HOUR;
     public static final String HOURS_DESC_2 = " " + PREFIX_HOURS + VALID_2_HOURS;
+    public static final String INDEX_DESC_1 = " " + PREFIX_INDEX + VALID_INDEX_1;
+    public static final String INDEX_DESC_2 = " " + PREFIX_INDEX + VALID_INDEX_2;
+    public static final String MILESTONE_DESCRIPTION_DESC_1 = " " + PREFIX_MILESTONE + VALID_MILESTONE_DESCRIPTION_1;
+    public static final String RANK_DESC_1 = " " + PREFIX_RANK + VALID_RANK_1;
 
     public static final String INVALID_DEFERDAYS_EXCEEDED = " " + PREFIX_DAY + "32";
     public static final String INVALID_DEFERDAYS_NEGATIVE = " " + PREFIX_DAY + "-1";
@@ -79,14 +89,29 @@ public class CommandTestUtil {
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + " "; // Title is empty
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + " "; // Description is empty
     public static final String INVALID_PRIORITY_LEVEL_DESC = " " + PREFIX_PRIORITY + "mid"; // not a priority level
-    public static final String INVALID_HOURS_DESC = " " + PREFIX_HOURS + "one"; // not an integer
+
     public static final String INVALID_MODULE_CODE_DESC = " " + PREFIX_MODULE_CODE + "2113CS";
     public static final String EMPTY_MODULE_CODE_DESC = " " + PREFIX_MODULE_CODE + " ";
+
     public static final int OVERFLOW_INT = Integer.MAX_VALUE;
+    public static final String INVALID_HOURS_DESC = " " + PREFIX_HOURS + "one"; // not an integer
+    public static final String ZERO_HOURS_DESC = " " + PREFIX_HOURS + "0";
+    public static final String NEGATIVE_HOURS_DESC = " " + PREFIX_HOURS + "-1";
     public static final String INVALID_HOURS_OVERFLOW = " " + PREFIX_HOURS
-            + Long.toString((long) OVERFLOW_INT + 1); // integer overflow
-    public static final int MAX_HOURS = 24; // integer overflow
-    public static final String INVALID_MAX_HOURS = " " + PREFIX_HOURS + Integer.toString(24); // integer overflow
+            + Long.toString((long) OVERFLOW_INT + 1);
+
+    public static final String INVALID_INDEX_OVERFLOW = " " + PREFIX_INDEX
+            + Long.toString((long) OVERFLOW_INT + 1);
+    public static final String INVALID_INDEX_DESC_ZERO = " " + PREFIX_INDEX + "0";
+    public static final String INVALID_INDEX_DESC_NEGATIVE = " " + PREFIX_INDEX + "-1";
+
+    public static final String INVALID_MILESTONE_DESCRIPTION_DESC = " " + PREFIX_MILESTONE
+            + "Dummy milestone with forty one characters";
+    public static final String INVALID_RANK_DESC_ZERO = " " + PREFIX_RANK + "0";
+    public static final String INVALID_RANK_DESC_NEGATIVE = " " + PREFIX_RANK + "-1";
+    public static final String EMPTY_INDEX_DESC = " " + PREFIX_INDEX + " ";
+    public static final String EMPTY_MILESTONE_DESCRIPTION_DESC = " " + PREFIX_MILESTONE + " ";
+    public static final String EMPTY_RANK_DESC = " " + PREFIX_RANK + " ";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

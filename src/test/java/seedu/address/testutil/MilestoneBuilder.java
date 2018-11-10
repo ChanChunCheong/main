@@ -22,6 +22,30 @@ public class MilestoneBuilder {
     }
 
     /**
+     * Initializes the MilestoneBuilder with the data of {@code milestoneToCopy}.
+     */
+    public MilestoneBuilder(Milestone milestoneToCopy) {
+        this.milestoneDescription = milestoneToCopy.getMilestoneDescription();
+        this.rank = milestoneToCopy.getRank();
+    }
+
+    /**
+     * Sets the milestone description of the {@code Milestone} that we are building.
+     */
+    public MilestoneBuilder withMilestoneDescription(String milestoneDescription) {
+        this.milestoneDescription = new MilestoneDescription(milestoneDescription);
+        return this;
+    }
+
+    /**
+     * Sets the rank of the {@code Milestone} that we are building.
+     */
+    public MilestoneBuilder withRank(String rank) {
+        this.rank = new Rank(rank);
+        return this;
+    }
+
+    /**
      * Build the milestone with the parameters set
      * @return Milestone
      */
