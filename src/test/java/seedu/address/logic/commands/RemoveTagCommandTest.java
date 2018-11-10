@@ -21,6 +21,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
+
+//@@author ChanChunCheong
 public class RemoveTagCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -124,3 +126,4 @@ public class RemoveTagCommandTest {
         assertFalse(removeTagToFirstTaskCommand.equals(removeTagToSecondTaskCommand));
     }
 }
+//@@author

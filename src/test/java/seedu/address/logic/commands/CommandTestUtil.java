@@ -10,8 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MILESTONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.ArrayList;

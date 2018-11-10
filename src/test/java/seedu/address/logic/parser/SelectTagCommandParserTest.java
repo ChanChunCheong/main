@@ -16,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.SelectTagCommand;
 import seedu.address.model.tag.Tag;
 
+//@@author ChanChunCheong
 public class SelectTagCommandParserTest {
     private static final Logger logger = LogsCenter.getLogger(AddTagCommandParserTest.class);
     private SelectTagCommandParser parser = new SelectTagCommandParser();
@@ -43,3 +44,4 @@ public class SelectTagCommandParserTest {
                 MESSAGE_TAG_CONSTRAINTS);
     }
 }
+//@@author

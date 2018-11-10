@@ -20,7 +20,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.RemoveTagCommand;
 import seedu.address.model.tag.Tag;
 
-
+//@@author ChanChunCheong
 public class RemoveTagCommandParserTest {
     private static final Logger logger = LogsCenter.getLogger(RemoveTagCommandParserTest.class);
     private RemoveTagCommandParser parser = new RemoveTagCommandParser();
@@ -53,3 +53,4 @@ public class RemoveTagCommandParserTest {
                 MESSAGE_TAG_CONSTRAINTS);
     }
 }
+//author

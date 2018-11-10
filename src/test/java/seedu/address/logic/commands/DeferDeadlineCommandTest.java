@@ -1,50 +1,36 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
-import static seedu.address.testutil.TypicalDeadlines.VALID_1ST_JAN_2018;
-import static seedu.address.testutil.TypicalDeadlines.VALID_YEAR_2018;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskBook;
 
-import java.util.ArrayList;
-import java.util.function.Predicate;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Deadline;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 
-
+//@@author ChanChunCheong
 public class DeferDeadlineCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
     private Model model = new ModelManager(getTypicalTaskBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-
-
-    //private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullDeadline_throwsNullPointerException() {
@@ -150,17 +136,17 @@ public class DeferDeadlineCommandTest {
 
     @Test
     public void equals() {
-        int DeferredDays = 1;
-        DeferDeadlineCommand deferTaskwithFirstIndexCommand = new DeferDeadlineCommand(INDEX_FIRST_TASK, DeferredDays);
+        int deferredDays = 1;
+        DeferDeadlineCommand deferTaskwithFirstIndexCommand = new DeferDeadlineCommand(INDEX_FIRST_TASK, deferredDays);
         DeferDeadlineCommand deferTaskwithSecondIndexCommand = new DeferDeadlineCommand(INDEX_SECOND_TASK,
-                DeferredDays);
+                deferredDays);
 
         // same object -> returns true
         Assert.assertTrue(deferTaskwithFirstIndexCommand.equals(deferTaskwithFirstIndexCommand));
 
         // same values -> returns true
         DeferDeadlineCommand deferTaskwithFirstIndexCommandCopy = new DeferDeadlineCommand(INDEX_FIRST_TASK,
-                DeferredDays);
+                deferredDays);
         Assert.assertTrue(deferTaskwithFirstIndexCommand.equals(deferTaskwithFirstIndexCommandCopy));
 
         // different types -> returns false
@@ -172,148 +158,5 @@ public class DeferDeadlineCommandTest {
         // different task -> returns false
         assertFalse(deferTaskwithFirstIndexCommand.equals(deferTaskwithSecondIndexCommand));
     }
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void addTask(Task task) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void selectDeadline(Deadline deadline) {
-            throw new AssertionError("This method should not be called.");
-        }
-        //author ChanChunCheong
-        @Override
-        public void addTag(Task task, Tag tag) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void removeTag(Task task, Tag tag) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void selectTag(Tag tag) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void sortTask(String method) {
-            throw new AssertionError("This method should not be called.");
-        }
-        //author
-        @Override
-        public Deadline getDeadline() {
-            return new Deadline(VALID_1ST_JAN_2018.toString());
-        }
-        @Override
-        public void resetData(ReadOnlyTaskBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public ReadOnlyTaskBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public boolean hasTask(Task task) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public boolean isTheExactSameTaskAs(Task task) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void deleteTask(Task target) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void completeTask(Task target, int hours) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void updateTask(Task target, Task editedTask) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public ObservableList<Task> getFilteredTaskList() {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void updateFilteredTaskList(Predicate<Task> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public boolean canUndoTaskBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public boolean canRedoTaskBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void undoTaskBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void redoTaskBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void commitTaskBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void trackProductivity() {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public String getYear() {
-            return VALID_YEAR_2018;
-        }
-    }
-
-    /**
-     * A default model stub that contains a single task.
-     */
-    private class ModelStubWithDeadline extends ModelStub {
-        private final Deadline deadline;
-        ModelStubWithDeadline(Deadline deadline) {
-            requireNonNull(deadline);
-            this.deadline = deadline;
-        }
-    }
-    /**
-     * A model stub that always accepts the deferred deadline being.
-     */
-    private class ModelStubAcceptingDeferredDeadline extends ModelStub {
-        final ArrayList<Task> tasksAdded = new ArrayList<>();
-        private Deadline deadline = new Deadline("1/1/2018");
-        @Override
-        public boolean hasTask(Task task) {
-            requireNonNull(task);
-            return tasksAdded.stream().anyMatch(task::isSameTask);
-        }
-        @Override
-        public void selectDeadline(Deadline deadline) {
-            requireNonNull(deadline);
-        }
-        @Override
-        public Deadline getDeadline() {
-            return this.deadline;
-        }
-        @Override
-        public void addTask(Task task) {
-            requireNonNull(task);
-            tasksAdded.add(task);
-        }
-        @Override
-        public void commitTaskBook() {
-            // called by {@code SelectDeadlineCommand#execute()}
-        }
-        @Override
-        public ReadOnlyTaskBook getAddressBook() {
-            return new AddressBook();
-        }
-    }
-
 }
+//@@author
