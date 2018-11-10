@@ -48,16 +48,16 @@ public class SortTaskCommand extends Command implements CommandParser {
         requireNonNull(model);
         //throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
         //throw new CommandException(String.format(MESSAGE_ARGUMENTS, method));
-        if (method.equals("modules") || method.equals("deadlines") || method.equals("priority")
-                || method.equals("title")) {
-            model.sortTask(method);
-            model.commitTaskBook();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, method));
-        } else {
-            //if the methods called are not within the list of methods called then throw CommandException
-            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortTaskCommand.MESSAGE_USAGE));
-        }
+        model.sortTask(method);
+        model.commitTaskBook();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, method));
+    }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortTaskCommand // instanceof handles nulls
+                && method.equals(((SortTaskCommand) other).method));
     }
 
     @Override

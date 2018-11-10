@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 
 //@@author ChanChunCheong
 public class SelectTagCommandParserTest {
-    private static final Logger logger = LogsCenter.getLogger(AddTagCommandParserTest.class);
+    private static final Logger logger = LogsCenter.getLogger(SelectTagCommandParserTest.class);
     private SelectTagCommandParser parser = new SelectTagCommandParser();
     @Test
     public void parse_allFieldsPresent_success() {

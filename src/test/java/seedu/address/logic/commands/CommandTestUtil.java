@@ -13,7 +13,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SORT;
 
+import java.beans.MethodDescriptor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -56,6 +58,7 @@ public class CommandTestUtil {
     public static final String VALID_INDEX_2 = "2";
     public static final String VALID_MILESTONE_DESCRIPTION_1 = "Dummy milestone";
     public static final String VALID_RANK_1 = "1";
+    public static final String VALID_SORTING_METHOD_PRIORITY = "priority";
 
     public static final String DEADLINE_DESC_1ST_JAN = " " + PREFIX_DEADLINE + VALID_DEADLINE_1ST_JAN;
     public static final String DEADLINE_DESC_31ST_MARCH = " " + PREFIX_DEADLINE + VALID_DEADLINE_31ST_MARCH;
@@ -80,6 +83,7 @@ public class CommandTestUtil {
     public static final String INDEX_DESC_2 = " " + PREFIX_INDEX + VALID_INDEX_2;
     public static final String MILESTONE_DESCRIPTION_DESC_1 = " " + PREFIX_MILESTONE + VALID_MILESTONE_DESCRIPTION_1;
     public static final String RANK_DESC_1 = " " + PREFIX_RANK + VALID_RANK_1;
+    public static final String SORT_PRIORITY = " " + PREFIX_SORT + VALID_SORTING_METHOD_PRIORITY;
 
     public static final String INVALID_DEFERDAYS_EXCEEDED = " " + PREFIX_DAY + "32";
     public static final String INVALID_DEFERDAYS_NEGATIVE = " " + PREFIX_DAY + "-1";
@@ -89,6 +93,7 @@ public class CommandTestUtil {
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + " "; // Title is empty
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + " "; // Description is empty
     public static final String INVALID_PRIORITY_LEVEL_DESC = " " + PREFIX_PRIORITY + "mid"; // not a priority level
+    public static final String INVALID_SORTING_METHOD_HOURS = " " + PREFIX_SORT + "hours";
 
     public static final String INVALID_MODULE_CODE_DESC = " " + PREFIX_MODULE_CODE + "2113CS";
     public static final String EMPTY_MODULE_CODE_DESC = " " + PREFIX_MODULE_CODE + " ";
