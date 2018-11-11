@@ -3,9 +3,13 @@ package seedu.address.model.task;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
+
 //@@author emobeany
 
 /**
@@ -60,6 +64,21 @@ public class Deadline {
     public String getYear() {
         return year;
     }
+
+    //@@author ChanChunCheong
+    public Date getDate() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dateAsString = toString();
+        Date date = null;
+        try {
+            date = dateFormat.parse(dateAsString);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return date;
+    }
+    //@@author
 
     public void setYear(String year) {
         this.year = year;
