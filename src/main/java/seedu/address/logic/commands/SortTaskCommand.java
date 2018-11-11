@@ -46,8 +46,6 @@ public class SortTaskCommand extends Command implements CommandParser {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
         requireNonNull(model);
-        //throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
-        //throw new CommandException(String.format(MESSAGE_ARGUMENTS, method));
         model.sortTask(method);
         model.commitTaskBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, method));

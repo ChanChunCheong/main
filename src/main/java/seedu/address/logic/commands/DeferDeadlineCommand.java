@@ -73,16 +73,6 @@ public class DeferDeadlineCommand extends Command implements CommandParser {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
         model.updateTask(taskToDefer, deferredTask);
-        /*
-        Task taskToDefer1 = lastShownList.get(taskIndex.getZeroBased());
-        System.out.println(String.format("ModelTask1 is %1$s", taskToDefer1.getTitle()));
-        Task taskToDefer2 = lastShownList.get(1);
-        System.out.println(String.format("ModelTask2 is %1$s", taskToDefer2.getTitle()));
-        Task taskToDefer3 = lastShownList.get(2);
-        System.out.println(String.format("ModelTask3 is %1$s", taskToDefer3.getTitle()));
-        Task taskToDefer4 = lastShownList.get(3);
-        System.out.println(String.format("ModelTask4 is %1$s", taskToDefer4.getTitle()));
-        */
         model.commitTaskBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToDefer));
     }

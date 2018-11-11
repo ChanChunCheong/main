@@ -8,8 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskBook;
+import static seedu.address.testutil.TypicalTasks.getTypicalTaskBook_task1And4DiffDeadlines;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -108,27 +108,17 @@ public class DeferDeadlineCommandTest {
 
     @Test
     public void execute_sameTaskButDifferentDeadline() {
+        Model model = new ModelManager(getTypicalTaskBook_task1And4DiffDeadlines(), new UserPrefs());
+
         Task taskToDefer = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
-        Task duplicateTaskWithDiffDeadline = new TaskBuilder(taskToDefer).withDeadline("10/10/2018").build();
         Task deferredTask = new TaskBuilder(taskToDefer).withDeadline("11/10/2018").build();
-        model.addTask(duplicateTaskWithDiffDeadline);
-        model.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
         DeferDeadlineCommand deferDeadlineCommand = new DeferDeadlineCommand(INDEX_FIRST_TASK, 2);
 
 
         String expectedMessage = String.format(DeferDeadlineCommand.MESSAGE_SUCCESS, taskToDefer);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
         expectedModel.updateTask(taskToDefer , deferredTask);
-        Task task = expectedModel.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
-        System.out.println(String.format("Expectedtask is %1$s", task.getTitle()));
-        Task task2 = expectedModel.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
-        System.out.println(String.format("Expectedtask2 is %1$s", task2.getTitle()));
-        Task task3 = expectedModel.getFilteredTaskList().get(INDEX_THIRD_TASK.getZeroBased());
-        System.out.println(String.format("Expectedtask3 is %1$s", task3.getTitle()));
-        Task task4 = expectedModel.getFilteredTaskList().get(INDEX_FOURTH_TASK.getZeroBased());
-        System.out.println(String.format("Expectedtask4 is %1$s", task4.getTitle()));
         expectedModel.commitTaskBook();
 
         assertCommandSuccess(deferDeadlineCommand, model, commandHistory, expectedMessage, expectedModel);

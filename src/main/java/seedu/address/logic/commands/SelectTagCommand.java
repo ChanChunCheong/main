@@ -44,7 +44,7 @@ public class SelectTagCommand extends Command implements CommandParser {
         requireNonNull(model);
         model.selectTag(selectedTag);
         model.commitTaskBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, selectedTag));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, selectedTag.toString()));
     }
 
     /*

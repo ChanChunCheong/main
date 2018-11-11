@@ -76,7 +76,65 @@ public class TypicalTasks {
         return ab;
     }
 
+    public static AddressBook getTypicalTaskBook_task1And4DiffDeadlines() {
+        AddressBook ab = new AddressBook();
+        for (Task task : getTypicalTasks_task1And4DiffDeadlines()) {
+            ab.addTask(task);
+        }
+        return ab;
+    }
+
+    public static AddressBook getTypicalTaskBook_sortedByPriority() {
+        AddressBook ab = new AddressBook();
+        for (Task task : getTypicalTasks()) {
+            ab.addTask(task);
+        }
+        return ab;
+    }
+
+    public static AddressBook getTypicalTaskBook_sortedByDeadlines() {
+        AddressBook ab = new AddressBook();
+        for (Task task : getTypicalTasks_sortedByDeadlines()) {
+            ab.addTask(task);
+        }
+        return ab;
+    }
+    public static AddressBook getTypicalTaskBook_sortedByModuleCode() {
+        AddressBook ab = new AddressBook();
+        for (Task task : getTypicalTasks_sortedByModules()) {
+            ab.addTask(task);
+        }
+        return ab;
+    }
+
+    public static AddressBook getTypicalTaskBook_sortedByTitle() {
+        AddressBook ab = new AddressBook();
+        for (Task task : getTypicalTasks_sortedByTitle()) {
+            ab.addTask(task);
+        }
+        return ab;
+    }
+
+
     public static List<Task> getTypicalTasks() {
         return new ArrayList<>(Arrays.asList(CS2101_HOMEWORK, CS2102_HOMEWORK, CS2113_HOMEWORK));
     }
+
+    public static List<Task> getTypicalTasks_task1And4DiffDeadlines() {
+        Task task = new TaskBuilder(CS2101_HOMEWORK).withDeadline("10/10/2018").build();
+        return new ArrayList<>(Arrays.asList(CS2101_HOMEWORK, CS2102_HOMEWORK, CS2113_HOMEWORK, task));
+    }
+
+    public static List<Task> getTypicalTasks_sortedByDeadlines() {
+        return new ArrayList<>(Arrays.asList(CS2113_HOMEWORK, CS2101_HOMEWORK, CS2102_HOMEWORK));
+    }
+
+    public static List<Task> getTypicalTasks_sortedByModules() {
+        return new ArrayList<>(Arrays.asList(CS2101_HOMEWORK, CS2102_HOMEWORK, CS2113_HOMEWORK));
+    }
+
+    public static List<Task> getTypicalTasks_sortedByTitle() {
+        return new ArrayList<>(Arrays.asList(CS2113_HOMEWORK, CS2101_HOMEWORK, CS2102_HOMEWORK));
+    }
+
 }

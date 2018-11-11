@@ -220,8 +220,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedTaskBook.equals(other.versionedTaskBook)
-                && filteredTasks.equals(other.filteredTasks);
+        return versionedTaskBook.equals(other.versionedTaskBook);
     }
     //@@author chelseyong
     /**
