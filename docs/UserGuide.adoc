@@ -109,10 +109,15 @@ their priority!
 
 [NOTE]
 ====
-* An empty TaskBook will accept the sort task command.
+* Tasks will be sorted in lexicographical order for `title` and `module` sorting methods.
+* Tasks will be sorted from higher to lower priority for `priority` sorting method.
+* Tasks will be sorted in ascending order of deadlines for `deadline` sorting method.
+* An empty TaskBook will accept the sort command.
+* Sort command uses stable sorting method
+* Two Tasks with equal values will appear in the same order in sorted output as they appear in the input array to be sorted.
 ====
 
-Sort the tasks in the task book via `priority`, `deadlines`, `modules`, or `title` +
+Sort the tasks in the task book via `priority`, `deadline`, `module`, or `title` +
 Format: `sort s/METHOD`
 
 Examples:
