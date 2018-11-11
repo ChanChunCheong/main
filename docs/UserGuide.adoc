@@ -119,6 +119,13 @@ Examples:
 
 * `sort s/priority`
 
+*Before*
+
+image::SortTaskCommand_before.png[width="790"]
+
+*After*
+
+image::SortTaskCommand_after.png[width="790"]
 === Deferring a deadline: `defer`
 |===
 |Need a way to quickly extend your deadline by a few days or up to a month? You can easily defer the deadline of your
@@ -140,6 +147,14 @@ Format: `defer i/INDEX dd/DAY`
 Examples:
 
 * `defer i/1 dd/04`
+
+*Before*
+
+image::DeferDeadlineCommand_before.png[width="790"]
+
+*After*
+
+image::DeferDeadlineCommand_after.png[width="790"]
 
 // tag::editTask[]
 === Editing a task: `edit`
@@ -211,6 +226,7 @@ Format: `add_tag i/INDEX t/TAG`
 [NOTE]
 ====
 * Tag names are all in lower case.
+* Duplicate tags are ignored and the tag list for the selected task will remain unchanged
 ====
 [WARNING]
 ====
@@ -220,6 +236,18 @@ Format: `add_tag i/INDEX t/TAG`
 Examples:
 
 * `add_tag i/1 t/homework`
+
+*Before*
+
+image::AddTagCommand_before.png[width="790"]
+
+*After*
+
+image::AddTagCommand_after.png[width="790"]
+
+*Duplicate Tags are ignored*
+
+image::AddTagCommand_duplicate.png[width="790"]
 
 === Removing a tag: `remove_tag`
 |===
@@ -243,6 +271,14 @@ Examples:
 
 * `remove_tag i/1 t/homework`
 
+*Before*
+
+image::RemoveTagCommand_before.png[width="790"]
+
+*After*
+
+image::RemoveTagCommand_after.png[width="790"]
+
 === Selecting a tag: `select_tag`
 |===
 |Need to view your tasks with the specific tag? For example, viewing all the tasks which are tagged with "homework"?
@@ -264,6 +300,14 @@ Format: `select_tag t/TAG`
 Examples:
 
 * `select_tag t/homework`
+
+*Before*
+
+image::SelectTagCommand_before.png[width="790"]
+
+*After*
+
+image::SelectTagCommand_after.png[width="790"]
 
 === Tracking productivity : `track`
 

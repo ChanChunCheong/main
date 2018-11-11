@@ -5,8 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
+import static seedu.address.testutil.TypicalIndexes.*;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskBook;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskBook_task1And4DiffDeadlines;
 
@@ -103,6 +102,17 @@ public class DeferDeadlineCommandTest {
         DeferDeadlineCommand deferDeadlineCommand = new DeferDeadlineCommand(INDEX_FIRST_TASK, 1);
         assertCommandFailure(deferDeadlineCommand, model, commandHistory,
                 deferDeadlineCommand.MESSAGE_DUPLICATE_TASK);
+    }
+
+    @Test
+    public void execute_deferredDeadlineNotValid_throwsCommandException() {
+        Task taskToDefer = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task duplicateTaskWithDiffDeadline = new TaskBuilder(taskToDefer).withDeadline("31/12/9999").build();
+        model.addTask(duplicateTaskWithDiffDeadline);
+        model.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
+        DeferDeadlineCommand deferDeadlineCommand = new DeferDeadlineCommand(INDEX_FIFTH_TASK, 3);
+        assertCommandFailure(deferDeadlineCommand, model, commandHistory,
+                deferDeadlineCommand.MESSAGE_INVALID_DEFERRED_DEADLINE);
     }
 
     @Test
