@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FOURTH_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskBook;
@@ -44,9 +45,11 @@ public class SortTaskCommandTest {
         Task task1 = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         Task task2 = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         Task task3 = model.getFilteredTaskList().get(INDEX_THIRD_TASK.getZeroBased());
+        Task task4 = model.getFilteredTaskList().get(INDEX_FOURTH_TASK.getZeroBased());
         assertEquals("CS2101", task1.getModuleCode().toString());
         assertEquals("CS2102", task2.getModuleCode().toString());
         assertEquals("CS2113", task3.getModuleCode().toString());
+        assertEquals("CS2114", task4.getModuleCode().toString());
     }
 
 
@@ -63,9 +66,11 @@ public class SortTaskCommandTest {
         Task task1 = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         Task task2 = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         Task task3 = model.getFilteredTaskList().get(INDEX_THIRD_TASK.getZeroBased());
+        Task task4 = model.getFilteredTaskList().get(INDEX_FOURTH_TASK.getZeroBased());
         assertEquals("CS2113", task1.getModuleCode().toString());
         assertEquals("CS2101", task2.getModuleCode().toString());
         assertEquals("CS2102", task3.getModuleCode().toString());
+        assertEquals("CS2114", task4.getModuleCode().toString());
     }
 
     @Test
@@ -81,9 +86,11 @@ public class SortTaskCommandTest {
         Task task1 = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         Task task2 = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         Task task3 = model.getFilteredTaskList().get(INDEX_THIRD_TASK.getZeroBased());
+        Task task4 = model.getFilteredTaskList().get(INDEX_FOURTH_TASK.getZeroBased());
         assertEquals("CS2101", task1.getModuleCode().toString());
-        assertEquals("CS2102", task2.getModuleCode().toString());
-        assertEquals("CS2113", task3.getModuleCode().toString());
+        assertEquals("CS2114", task2.getModuleCode().toString());
+        assertEquals("CS2102", task3.getModuleCode().toString());
+        assertEquals("CS2113", task4.getModuleCode().toString());
     }
 
 
@@ -100,9 +107,42 @@ public class SortTaskCommandTest {
         Task task1 = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
         Task task2 = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         Task task3 = model.getFilteredTaskList().get(INDEX_THIRD_TASK.getZeroBased());
+        Task task4 = model.getFilteredTaskList().get(INDEX_FOURTH_TASK.getZeroBased());
         assertEquals("CS2113", task1.getModuleCode().toString());
-        assertEquals("CS2101", task2.getModuleCode().toString());
-        assertEquals("CS2102", task3.getModuleCode().toString());
+        assertEquals("CS2114", task2.getModuleCode().toString());
+        assertEquals("CS2101", task3.getModuleCode().toString());
+        assertEquals("CS2102", task4.getModuleCode().toString());
+    }
+
+    @Test
+    public void execute_stableSorting_success() {
+        String priority = "priority";
+        String deadlines = "deadlines";
+        SortTaskCommand sortTaskCommandPriority = new SortTaskCommand(priority);
+        String expectedMessagePriority = String.format(sortTaskCommandPriority.MESSAGE_SUCCESS, priority);
+        SortTaskCommand sortTaskCommandDeadlines = new SortTaskCommand(deadlines);
+        String expectedMessageDeadlines = String.format(sortTaskCommandPriority.MESSAGE_SUCCESS, deadlines);
+
+        ModelManager expectedModel = new ModelManager(getTypicalTaskBook(), new UserPrefs());
+        //CS2114 will be in front of CS2113.
+
+        expectedModel.sortTask(priority);
+        expectedModel.commitTaskBook();
+        assertCommandSuccess(sortTaskCommandPriority, model, commandHistory, expectedMessagePriority, expectedModel);
+
+        //CS2114 remains in front of CS2113. Different to the order in execute_sortedByDeadlines_success()
+        expectedModel.sortTask(deadlines);
+        expectedModel.commitTaskBook();
+        assertCommandSuccess(sortTaskCommandDeadlines, model, commandHistory, expectedMessageDeadlines,
+                expectedModel);
+        Task task1 = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task task2 = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
+        Task task3 = model.getFilteredTaskList().get(INDEX_THIRD_TASK.getZeroBased());
+        Task task4 = model.getFilteredTaskList().get(INDEX_FOURTH_TASK.getZeroBased());
+        assertEquals("CS2114", task1.getModuleCode().toString());
+        assertEquals("CS2113", task2.getModuleCode().toString());
+        assertEquals("CS2101", task3.getModuleCode().toString());
+        assertEquals("CS2102", task4.getModuleCode().toString());
     }
 
     @Test

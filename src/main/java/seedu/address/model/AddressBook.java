@@ -18,6 +18,7 @@ import seedu.address.model.task.UniqueTaskList;
 public class AddressBook implements ReadOnlyTaskBook {
 
     private static final Deadline PLACEHOLDER_DEADLINE = new Deadline("1/1/2018");
+    //private static final Logger logger = LogsCenter.getLogger(AddressBook.class);
     private final UniqueTaskList tasks;
     private Deadline currentDate;
 
@@ -106,7 +107,7 @@ public class AddressBook implements ReadOnlyTaskBook {
         tasks.removeTagFromTask(target, tag);
     }
 
-
+    //@@author emobeany
     /**
      * Replaces the given task {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -118,6 +119,7 @@ public class AddressBook implements ReadOnlyTaskBook {
         tasks.setTask(target, editedTask);
     }
 
+    //@@author
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
@@ -150,6 +152,13 @@ public class AddressBook implements ReadOnlyTaskBook {
         return currentDate.getYear();
     }
 
+    public Deadline getDeadline() {
+        if (currentDate == null) {
+            currentDate = PLACEHOLDER_DEADLINE;
+        }
+        return currentDate;
+    }
+
     //@@ ChanChunCheong
     /**
      * Sorts the Task Book based on the method chosen.
@@ -164,12 +173,6 @@ public class AddressBook implements ReadOnlyTaskBook {
         tasks.setTasks(updateList);
     }
 
-    public Deadline getDeadline() {
-        if (currentDate == null) {
-            currentDate = PLACEHOLDER_DEADLINE;
-        }
-        return currentDate;
-    }
     // util methods
 
     @Override

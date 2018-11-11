@@ -111,7 +111,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void sortTask(String method) {
         versionedTaskBook.sortTask(method);
-        // updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         indicateTaskBookChanged();
     }
 

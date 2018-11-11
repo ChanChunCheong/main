@@ -40,6 +40,7 @@ public class CommandTestUtil {
     public static final String VALID_MODULE_CODE_CS2113 = "CS2113";
     public static final String VALID_MODULE_CODE_CG2271 = "CG2271";
     public static final String VALID_TAG = "module";
+    public static final String VALID_MODULE_CODE_CS2101 = "CS2101";
     public static final String VALID_TITLE_1 = "Complete CS2113 Homework";
     public static final String VALID_TITLE_2 = "Start coding test units";
     public static final String VALID_TITLE_3 = "Prepare OP2";
@@ -108,6 +109,9 @@ public class CommandTestUtil {
             + Long.toString((long) OVERFLOW_INT + 1);
     public static final String INVALID_INDEX_DESC_ZERO = " " + PREFIX_INDEX + "0";
     public static final String INVALID_INDEX_DESC_NEGATIVE = " " + PREFIX_INDEX + "-1";
+    public static final String INVALID_PREAMBLE_INDEX_DESC = " " + PREFIX_INDEX + "1a";
+    public static final String INVALID_EMPTY_INDEX_DESC = " " + PREFIX_INDEX + "";
+    public static final String INVALID_INDEX_DESC = " " + PREFIX_INDEX + "a" + VALID_INDEX_1;
 
     public static final String INVALID_MILESTONE_DESCRIPTION_DESC = " " + PREFIX_MILESTONE
             + "Dummy milestone with forty one characters";
@@ -120,19 +124,6 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    //Mainly for EditCommandTests --> can remove
-    //public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    //public static final EditCommand.EditPersonDescriptor DESC_BOB;
-    /*
-    static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-    }
-    */
     //@@author
     /**
      * Executes the given {@code command}, confirms that <br>
