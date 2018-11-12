@@ -147,6 +147,7 @@ Examples:
 
 * `delete 1`
 // tag::sort_task[]
+
 === Sort the taskbook: `sort`
 |===
 |Need to view the tasks in a specific order you prefer? For example, you would like the tasks to be displayed from the
