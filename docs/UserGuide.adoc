@@ -250,10 +250,6 @@ image::AddTagCommand_before.png[width="790"]
 
 image::AddTagCommand_after.png[width="790"]
 
-*Duplicate Tags are ignored*
-
-image::AddTagCommand_duplicate.png[width="790"]
-
 === Removing a tag: `remove_tag`
 |===
 |Found the tags added previously to your tasks not suitable? You can remove the tags easily and conveniently!
