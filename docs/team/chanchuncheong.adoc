@@ -90,7 +90,6 @@ include::../UserGuide.adoc[tag=select_tag]
 include::../UserGuide.adoc[tag=add_tag]
 
 include::../UserGuide.adoc[tag=remove_tag]
-
 == Contributions to the Developer Guide
 
 |===
