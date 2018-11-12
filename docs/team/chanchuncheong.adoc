@@ -97,7 +97,7 @@ include::../UserGuide.adoc[tag=remove_tag]
 with the aim of enabling future developers to extend/maintain the application_
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=deferDeadline_feature]
 
 
 

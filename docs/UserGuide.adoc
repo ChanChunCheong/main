@@ -203,11 +203,16 @@ Format: `defer i/INDEX dd/DAY`
 * Deadline of the selected task will be automatically updated by the number of days deferred from the deadline
 ====
 
+
+
 [WARNING]
 ====
 * Selected task must exist in the TaskBook
 * A task cannot be deferred by the number of days if it will result in two similar tasks with the same deadlines.
 ====
+
+
+
 Examples:
 
 * `defer i/1 dd/04`
@@ -313,11 +318,17 @@ Format: `add_tag i/INDEX t/TAG`
 * Tag names are all in lower case.
 * Duplicate tags are ignored and the tag list for the selected task will remain unchanged
 ====
+
+
+
 [WARNING]
 ====
 * Tag names has to be alphanumeric
 * Selected task must exist in the TaskBook
 ====
+
+
+
 Examples:
 
 * `add_tag i/1 t/homework`
@@ -345,11 +356,15 @@ Format: `remove_tag i/INDEX t/TAG`
 * Selected tag to be removed from the task is case-insensitive.
 ====
 
+
+
 [WARNING]
 ====
 * Tag names has to be alphanumeric
 * Selected task must exist in the TaskBook
 ====
+
+
 
 Examples:
 
