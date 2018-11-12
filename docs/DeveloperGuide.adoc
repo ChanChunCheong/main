@@ -767,7 +767,6 @@ Use case ends.
 
 * 1a. Student provided an invalid sorting method
 ** 1a1. TB outputs an error message to request for a valid sorting method
-** 1a2. Student returns a new sort sorting method
 +
 Use case ends.
 
@@ -778,18 +777,95 @@ Use case ends.
 
 1. Student requests to defer the deadline for an existing task by number of days
 2. TB checks the validity of the index and number of days.
-3. TB updates the new deadline for the existing task
+3. TB updates and display the new deadline for the existing task
 +
 Use case ends.
 
 *Extensions*
 
-* 1b. Student wants to defer a deadline for a task without deadline
+* 1a. Student wants to defer a deadline for an non-existent task
+** 1a1. TB outputs an error message
+
+* 1b. Student wants to defer to a invalid deadline for the selected task
 ** 1b1. TB outputs an error message
 +
 Use case ends.
 
 [discrete]
+
+[discrete]
+// tag::usecase_milestone[]
+=== Use case: Add tag
+
+*MSS*
+
+1. Student requests to add a new tag and provides the index and the tag
+2. TB adds the tag to the selected task
++
+Use case ends.
+
+*Extensions*
+
+* 1a. Student enters an invalid index when list of tasks added is empty
+** 1a1. TB outputs error message for invalid index
++
+Use case ends.
+
+* 1b. Student enters index, tag and rank without all the required prefixes
+** 1b1. TB outputs error message for invalid format
++
+Use case ends.
+
+* 1c. Student enters an invalid tag
+** 1c1. TB outputs error message for invalid format
++
+Use case ends.
+
+[discrete]
+=== Use case: remove tag
+
+*MSS*
+
+1. Student requests to remove a tag and provides the index and the tag
+2. TB removes the tag from the selected task
++
+Use case ends.
+
+*Extensions*
+* 1a. Student enters an invalid index when list of tasks added is empty
+** 1a1. TB outputs error message for invalid index
++
+Use case ends.
+
+* 1b. Student enters index, tag and rank without all the required prefixes
+** 1b1. TB outputs error message for invalid format
++
+Use case ends.
+
+* 1c. Student enters an invalid tag
+** 1c1. TB outputs error message for invalid format
++
+Use case ends.
+
+* 1d. Student selected the task that doesn't have the tag indicated
+** 1d1. TB outputs error message for invalid format
++
+Use case ends.
+
+[discrete]
+=== Use case: select tag
+
+*MSS*
+
+1. Student requests to display list of task with the selected tag and provides the tag
+2. TB removes the tag from the selected task
++
+Use case ends.
+
+* 1c. Student enters an invalid tag
+** 1c1. TB outputs error message for invalid format
++
+Use case ends.
 // tag::editTask[]
 === Use case: Edit task
 
