@@ -492,6 +492,7 @@ Step 5.  Lastly, `Model#commitTaskBook()` will be called causing the modified st
 executes to be saved in the  `TaskBookStateList`, and the `currentStatePointer` to be updated.
 
 The following sequence diagram illustrates how the `defer` command is implemented.
+
 image::DeferDeadline_SequenceDiagram.png[width="790"]
 
 
@@ -769,7 +770,7 @@ Use case ends.
 ** 1a1. TB outputs an error message to request for a valid sorting method
 +
 Use case ends.
-
+// tag::usecase_deferDeadlines[]
 [discrete]
 === Use case: Defer deadlines
 
@@ -790,7 +791,7 @@ Use case ends.
 ** 1b1. TB outputs an error message
 +
 Use case ends.
-
+// end::usecase_deferDeadlines[]
 [discrete]
 
 [discrete]

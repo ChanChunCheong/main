@@ -95,6 +95,7 @@ with the aim of enabling future developers to extend/maintain the application_
 |===
 
 include::../DeveloperGuide.adoc[tag=deferDeadline_feature]
+include::../DeveloperGuide.adoc[tag=usecase_deferDeadlines]
 
 
 
