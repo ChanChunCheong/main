@@ -169,9 +169,9 @@ Format: `sort s/METHOD`
 
 Examples:
 
-* `sort s/deadlines`
+* `sort s/deadline`
 
-*Before: "sort s/deadlines" is entered*
+*Before: "sort s/deadline" is entered*
 
 image::SortTaskCommand_before.png[width="790"]
 
