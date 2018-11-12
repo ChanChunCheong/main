@@ -476,8 +476,6 @@ instantiated as deferredTask. The deadline of `deferredTask` will be deferred by
 The validity of the deadline and existence of duplicate tasks will be checked.  Task to be deferred will be updated with
  `deferredTask` through `updateTask()` and `updateFiteredTaskList()` method in the Model Component.
 
-The following sequence diagram illustrates how the `defer` command is implemented.
-
 Step 1. The user launches the application. If it is the first time he/she is launching it, the `VersionedTaskBook` will be
  initialized with a sample task book data. If the user has already launched it previously and made changes to it, the
  `VersionedTaskBook` launched will contain the data that he/she has entered in the previous launch.
@@ -494,7 +492,7 @@ Also, `Model#updateFilteredTaskList()` will be called to update the list that is
 Step 5.  Lastly, `Model#commitTaskBook()` will be called causing the modified state of the task book after the defer i/1 dd/1 command
 executes to be saved in the  `TaskBookStateList`, and the `currentStatePointer` to be updated.
 
-
+The following sequence diagram illustrates how the `defer` command is implemented.
 image::DeferDeadline_SequenceDiagram.png[width="790"]
 
 

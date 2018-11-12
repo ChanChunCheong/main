@@ -39,7 +39,7 @@ For example, user might prefer tasks to be shown from higher to lower priority. 
  challenging as it required changes in multiple components in the application .
 
 
-* *Major enhancement*: added the ability to defer deadline of tasks in the task management system.
+* *Major enhancement*: added the ability to *defer deadline* of tasks in the task management system.
 ** What it does: It allows the user to defer the deadline of the tasks easily.
 ** Justification: This feature improves the product significantly because it helps to provide a better user experience
 of the application by enabling user to defer the deadline of their tasks easily by stating the number of days to defer from the deadline,
@@ -56,7 +56,7 @@ taskbook is to help user to better organise their tasks easily.
 
 * *Minor enhancement*: Implemented a *remove tag command* which *tags can be removed from each task*.
 
-* *Code contributed*: [https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=jeremyinelysium&sort=displayName&since=2018-09-12&until=2018-11-05&timeframe=day&reverse=false&repoSort=true[Functional/Test code]]
+* *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=chan%20chun&sort=displayName&since=2018-09-12&until=2018-11-05&timeframe=day&reverse=false&repoSort=true[Functional/Test code]
 
 * *Other contributions*:
 
@@ -87,9 +87,6 @@ include::../UserGuide.adoc[tag=sort_task]
 
 include::../UserGuide.adoc[tag=select_tag]
 
-include::../UserGuide.adoc[tag=add_tag]
-
-include::../UserGuide.adoc[tag=remove_tag]
 == Contributions to the Developer Guide
 
 |===
